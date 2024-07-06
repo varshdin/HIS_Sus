@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+.bg-blues-new{
+    background: #f9f9ff;
+}
+
+@media screen and (max-width: 480px) {
+    /* CSS rules for small devices here */
+
+    .w-50 {
+        width: 50%;
+    }
+    h5 {
+        font-size: 13px;
+    }
+    .testi_item .testi_text h4 {
+        font-size: 14px;
+        margin-bottom: 8px;
+        text-transform: capitalize;
+        white-space: nowrap;
+    }
+}

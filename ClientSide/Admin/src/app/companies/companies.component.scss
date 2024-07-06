@@ -1,0 +1,71 @@
+#saveButton {
+  margin: 20px auto;
+  background-color: #002347;
+  color: white;
+  min-height: 40px;
+  display: block;
+  max-width: 200px;
+}
+
+#selectBox{
+  margin: 20px auto;
+
+  min-height: 40px;
+  display: block;
+  min-width: 300px;
+}
+.table {
+  width: 100%;
+}
+
+.mdc-data-table__header-cell {
+  
+  text-align: center !important;
+}
+.mdc-data-table__cell {
+
+text-align: center !important;
+
+}
+.mat-column-position {
+
+border-right: 1px solid currentColor;
+text-align: center;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-container{
+  display: flex;
+  justify-content: flex-center;
+  
+}
+.add-new-company-button{
+  float: right;
+}
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.4rem;
+  background-color: #3f51b5;
+  color: aliceblue;
+  border-color: transparent;
+
+}
+.submenu-button {
+  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+  background-color: #fdc632;
+  border-color: transparent;
+  border-radius: 1rem;
+
+}
+.searchField{
+  width: 100%;
+}

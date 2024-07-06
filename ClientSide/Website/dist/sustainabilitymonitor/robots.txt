@@ -1,0 +1,21 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /home
+Allow: /about-us
+Allow: /dashboard
+Allow: /env_analysis
+Allow: /textual_analysis
+Allow: /contact-us
+Allow: /firms
+Disallow : /
+Disallow : /images/
+Disallow : /css/
+Disallow : /js/
+Disallow : /ajax/
+Disallow : /api/
+
+Sitemap: https://www.sustainabilitymonitor.org/sitemap.xml
+Sitemap: https://sustainabilitymonitor.org//sitemap.xml
+Sitemap: https://www.sustainabilitymonitor.org/sitemap.xml

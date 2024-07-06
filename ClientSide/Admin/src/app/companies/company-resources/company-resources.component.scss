@@ -1,0 +1,65 @@
+.formdiv {
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .toolbar-container {
+    display: flex;
+    justify-content: flex-center;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .saveButton {
+    display: inline-block;
+    text-align: center;
+    color: azure;
+    width: 200px;
+    background-color: #002347;
+    border-color: transparent;
+    border-radius: 2rem;
+    height: 40px;
+    margin-bottom: 2%;
+  }
+  
+  #selectBox {
+    margin: 20px auto;
+    min-height: 40px;
+    display: block;
+    min-width: 300px;
+  }
+  .table {
+    width: fit-content;
+  }
+  
+  .mdc-data-table__header-cell {
+    text-align: center !important;
+  }
+  .mdc-data-table__cell {
+    text-align: center !important;
+    width: fit-content;
+  }
+  .mat-column-position {
+    border-right: 1px solid currentColor;
+    text-align: center;
+  }
+  .inputField {
+    width: 100%;
+    margin-top: 1%;
+  }
+  .table-row {
+    height: 30px !important;
+  }
+  .menu-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.4rem;
+    background-color: transparent;
+    color: aliceblue;
+    border-color: transparent;
+  }

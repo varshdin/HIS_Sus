@@ -1,0 +1,73 @@
+<ng-container *ngIf="firmDetails">
+    <div class="whole-wrap">
+        <div class="container">
+            <div class="section-top-border">
+                <h3 class="mb-30 title_color">{{firmDetails?.company_name}}</h3>
+                <div class="row">
+                    <div class="col-md-3 image-container">
+                        <img [src]="getLogo(firmDetails?.logo_link)" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-9 mt-sm-20 left-align-p">
+                        <p [innerHTML]="firmDetails?.company_description"></p>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <a target="_blank" [href]="firmDetails?.company_url" class="genric-btn default circle arrow">View
+                            more<span class="ti-arrow-right"></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-top-border">
+                <h3 class="mb-30 title_color">PDF Reports</h3>
+
+                <div class="row mb-5">
+                    <div class="grid-prod" *ngIf="firmDetails?.reports.length !== 0">
+                        <div class="prod-grid" *ngFor="let report of firmDetails?.reports">
+                            <a [href]="getPDFLink(report)" title="{{firmDetails?.company_name}}" target="_blank" (click)="openPDF(report)">
+                                <img src='/assets/img/pdf.png' alt="kalita">
+                                <h6 class="mt-1" [innerHTML]="_getreportsName(report)"></h6>
+                            </a>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="firmDetails?.reports.length == 0">
+                        <div class="col-md-12 text-center">
+                            <h5 class="text-error text-danger">Oops, we currently have no PDF reports available for this firm. Check back later!</h5>
+                        </div>
+                    </ng-container>
+                </div>
+
+
+                <!-- <div class="row">
+                    <ng-container >
+                        <div class="col-md-3 w-50" >
+                            <div class="single-defination text-center">
+                                <div class="card align-items-center justify-content-center image-container">
+                                    <a  rel="noopener noreferrer"
+                                        target="_blank"><img src="/assets/img/pdf.png" alt=""></a>
+                                </div>
+                                <h4 class="mb-20"></h4>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div> -->
+            </div>
+            <!--     
+            <div class="section-top-border">
+                <h3 class="mb-30 title_color">WordCloud</h3>
+                <div class="row">
+                    <ng-container *ngIf="firmDetails?.wordcloud.length !== 0">
+                        <div class="col-md-3" *ngFor="let cloud of firmDetails?.wordcloud">
+                            <div class="single-defination text-center">
+                                <div class="card align-items-center justify-content-center image-container">
+                                    <a rel="noopener noreferrer" target="_blank"><img [src]="getLogo(cloud)" alt=""></a>
+                                </div>
+                                <h4 class="mb-20">{{ getCloudName(cloud) }}</h4>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+</ng-container>

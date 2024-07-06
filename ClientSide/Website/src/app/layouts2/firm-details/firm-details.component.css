@@ -1,0 +1,54 @@
+.single-defination .card{
+    background: #f7f7f7;
+    display: inline-block;
+    padding: 1rem 0.51rem;
+    box-shadow: 0px 3px 2px 0px;
+    margin-bottom: 1rem;
+}
+
+.image-container {
+    width: 100%;
+    height: auto;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+.w-50 {
+    width: 50%;
+}
+
+/*CSS Grid*/
+
+.grid-prod {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.prod-grid {
+    /* flex: 1 1 10%; */
+    margin: 1%;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #80808038;
+    background: #faf7ff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.prod-grid img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    transform: scale(1);
+}
+
+@media (min-width : 320px) and (max-width : 480px) {
+
+    .section-list,
+    .buttons {
+        display: none;
+    }
+}

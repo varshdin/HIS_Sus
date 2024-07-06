@@ -1,0 +1,57 @@
+<header class="header_area" [class.navbar_fixed]="sticky" #stickyMenu>
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+
+                <a class="navbar-brand logo_h" routerLink="/"><img src="assets/img/logo.png" alt="" height="41px" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/" (click)="scrollToElement('home')">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/" (click)="scrollToElement('about-us')">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/" (click)="scrollToElement('firms')">Firms</a>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a routerLink="/" (click)="scrollToElement('dashboard')" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Dashboard</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" routerLink="/ind_analysis">Industry Indicators Analysis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" routerLink="/env_analysis">Firm Environmental Analysis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" routerLink="/social_analysis">Firm Social Analysis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" routerLink="/textual_analysis">Firm Textual Analysis</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="'repository/view'">PDF Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/" (click)="scrollToElement('contact-us')">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/faq" (click)="scrollToElement('contact-us')">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

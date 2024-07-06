@@ -1,0 +1,41 @@
+<section class="feature_area section-gap-2 bg-blues-new">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Firms</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="grid-prod" *ngIf="firms.length !== 0">
+                <div class="prod-grid" *ngFor="let firm of firms.slice(0,pageSize)" [routerLink]="'firm/details/' + firm?.company_id">
+                    <img [src]="getLogo(firm?.logo_link)" alt="kalita">
+                    <h6 class="mt-1" [innerHTML]="firm?.company_name"></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!loading && hasMoreFirms">
+            <div class="col-md-12 text-center">
+                <button class="genric-btn default circle" (click)="loadMore()">Load more</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="loading">
+            <div class="col-md-12 text-center">
+                <p>Loading more firms...</p>
+            </div>
+        </div>
+        <!-- <div class="grid-prod" *ngIf="firms.length !== 0" infinite-scroll [infiniteScrollDistance]="distance" [infiniteScrollThrottle]="throttle" (scrolled)="onScroll()">
+            <div class="prod-grid" *ngFor="let firm of firms" [routerLink]="'firm/details/' + firm?.id">
+                <img [src]="getLogo(firm?.logo_link)" alt="kalita">
+                <h6 class="mt-1" [innerHTML]="firm?.name"></h6>
+            </div>
+        </div> -->
+
+        <!-- <div class="row" *ngIf="this.notGetMoreFirm !== 0">
+            <div class="col-md-12 text-center">
+                <a class="genric-btn default circle" (click)="viewMore()">View more</a>
+            </div>
+        </div> -->
+    </div>
+</section>

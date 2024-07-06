@@ -1,0 +1,14 @@
+.header{
+    /* background-color: rgb(205, 205, 34) ! important; */
+    background-color: white !important;
+    padding: 1% !important;
+    
+}
+.navbar-nav .nav-link {
+    color: black; /* Change this to your desired color */
+    font-weight: bold; /* Makes the text bold */
+}
+.nav-link{
+    border-radius: 10pc;
+    
+}

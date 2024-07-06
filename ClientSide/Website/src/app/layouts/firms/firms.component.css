@@ -1,0 +1,93 @@
+.section-gap-2{
+    padding: 75px 0;
+}
+
+.single_course .course_content {
+    padding: 15px 15px;
+}
+.single_course .price {
+    position: absolute;
+    top: -21px;
+    right: 6px;
+    z-index: 2;
+    color: #002347;
+    display: inline-block;
+    height: 39px;
+    line-height: 44px;
+    width: 39px;
+    text-align: center;
+    border-radius: 50px;
+    background: #b0db38;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.single_course .course_content {
+    padding: 15px 15px;
+}
+.single_course{
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5px;
+}
+
+/* Component: Image */
+.image {
+    /* border: 3px solid #391e7d; */
+    border-radius: 5px 5px 3px 3px;
+    position: relative;
+    height: 0;
+    padding-bottom: 80%;
+}
+
+.image-fit {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: unset;
+    object-position: center center;
+}
+.genric-btn{
+  border: 1px solid #dddddd;
+}
+
+
+/*CSS Grid*/
+
+.grid-prod {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.prod-grid {
+    flex: 1 1 10%;
+    margin: 1%;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #80808038;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 8px 3px rgb(0 0 0 / 10%), 0px 8px 5px rgb(0 0 0 / 17%);
+    cursor: pointer;
+}
+
+.prod-grid img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    transform: scale(1);
+}
+
+@media (min-width : 320px) and (max-width : 480px) {
+
+    .section-list,
+    .buttons {
+        display: none;
+    }
+}

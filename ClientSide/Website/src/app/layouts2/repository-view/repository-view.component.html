@@ -1,0 +1,104 @@
+<!-- Header Start -->
+<section class="header">
+    <div class="container teams">
+        <div class="row">
+            <!-- Left-Side -->
+            <div class="col-md-8 col-sm-12  left">
+                <h1 class="heading mt-3"> <span>P</span>DF <span>R</span>epository</h1>
+            </div>
+            <!-- Rigth-Side -->
+            <!-- <div class="col-md-4 col-sm-12 right search-box input-group">
+                <input type="text" class="form-control" placeholder="Search company name.."
+                    aria-label="Search company name.." aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        class="fa fa-search"></i></button>
+            </div> -->
+        </div>
+        <hr>
+    </div>
+</section>
+<!-- Header End -->
+<br>
+<div class="container container-folders">
+
+    <div class="card card-folders">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col mr-auto">
+                    <h6 class="card-title m-0">Companies reports in PDF view</h6>
+                </div>
+                <div class="col col-auto pr-2 text-right">
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary active" id="btn-list">
+                            <fa-icon [icon]="faThList"></fa-icon>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary outline-none " id="btn-grid">
+                            <fa-icon [icon]="faThLarge"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="isLoading === false">
+            <!-- Folders Container -->
+            <div class="card-body" id="foldersGroup" (click)="onClick()">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">
+                        <fa-icon [icon]="faFolder"></fa-icon>&nbsp; Folders</li>
+                </ol>
+                <div id="main-folders" class="d-flex align-items-stretch flex-wrap flex-column">
+                    <div class="d-inline-flex" *ngFor="let company of companies">
+                        <button class="folder-container" (click)="selectedFirm(company)">
+                            <div class="folder-icon">
+                                <fa-icon  class="folder-icon-color" [icon]="faFolder"></fa-icon>
+                            </div>
+                            <div class="folder-name">{{company?.name}}</div>
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="row mt-3" *ngIf="notGetMoreFirm !== 0">
+                    <div class="col-md-12 text-center">
+                        <a class="genric-btn default circle" (click)="viewMore()">View more</a>
+                    </div>
+                </div> -->
+            </div>
+            <!-- End Folders Container -->
+            <!-- Files Container -->
+            <div class="card-body d-none" id="filesGroup" *ngIf="selectedCompany">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a id="backToFolders"><fa-icon [icon]="faFolder"></fa-icon>&nbsp;Folders</a></li>
+                    <li class="breadcrumb-item active">{{ selectedCompany?.name }}</li>
+                </ol>
+                <div id="main-files" class="d-flex align-items-stretch flex-wrap flex-column">
+                    <ng-container *ngIf="selectedCompany?.reports.length != 0">
+                        <div class="d-inline-flex" *ngFor="let report of selectedCompany?.reports">
+                            <!-- [href]="report" -->
+                            <a title="{{selectedCompany?.name}}" target="_blank" [href]="getPDFLink(report)" (click)="openPDF(report)">
+                                <button class="folder-container">
+                                    <div class="folder-icon">
+                                        <fa-icon class="file-icon-color" [icon]="faFile"></fa-icon>
+                                    </div>
+                                    <div class="folder-name">
+                                        {{_getReportsName(report)}}
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                    </ng-container>
+    
+                    <div class="d-inline-flex w-100" *ngIf="selectedCompany?.reports.length == 0">
+                        <button class="folder-container text-error">
+                            <div class="folder-name">
+                                Oops, we currently have no PDF reports available for this firm. Check back later!
+                            </div>
+                        </button>
+                    </div>
+    
+                </div>
+            </div>
+            <!-- End Files Container -->
+        </ng-container>
+    </div>
+
+</div>
+<br>

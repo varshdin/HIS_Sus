@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Firms</title>
+    <script src="ClientSide\admin_pannel\src\app\app.module.ts"></script>
+    <script src="ClientSide\admin_pannel\src\app\api.service.ts"></script>
+    <script src="ClientSide\admin_pannel\src\app\Componant\add-firms\add-firms.component.ts"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    
+    <!-- Include your CSS files here -->
+</head>
+<body ng-app="myApp" ng-controller="AddFirmsController">
+
+<div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <h3 style="margin-top: 60px;">Add New Firms Here !</h3>
+            <div class="card">
+                <form class="form-card" id="companyForm" name="companyForm" class="form-card" ng-submit="submitForm()" novalidate>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Company Name<span class="text-danger"> *</span></label>
+                            <input type="text" id="cname" name="cname" placeholder="Enter Company Name" class="form-control" required >
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Company Alias(Short Name)<span class="text-danger"> *</span></label>
+                            <input type="text" id="aname" name="aname" placeholder="Enter Company Short Name" class="form-control"  required>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Nace_Lev2_Id<span class="text-danger"> *</span></label>
+                            <select id="Nace_Lev2_id" name="Nace_Lev2_id" class="form-control" required>
+                                <option value="">Please Select</option>
+                                <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Company URL<span class="text-danger"> *</span></label>
+                            <input type="url" id="curl" name="curl" placeholder="http://ABC/EFG.com" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-12 flex-column d-flex">
+                            <label class="form-control-label px-3">Nace_Lev2_Id_Description<span class="text-danger"> *</span></label>
+                            <input type="text" id="nace_Lev2_id_desc" name="nace_Lev2_id_desc" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                      <div class="form-group col-sm-6 flex-column d-flex">
+                          <label class="form-control-label px-3">Sustainability_Url<span class="text-danger"> *</span></label>
+                          <input type="url" id="surl" name="surl" placeholder="http://ABC/EFG.com" class="form-control" required>
+                      
+                      </div>
+                      <div class="form-group col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3">Select Company Logo<span class="text-danger"> *</span></label>
+                        <input type="file" id="logo" name="logo" class="form-control" accept="image/png" required>
+                    </div>
+                    
+                  </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-12 flex-column d-flex">
+                            <label class="form-control-label px-12">Description<span class="text-danger"> *</span></label>
+                           <textarea id="description" name="description" class="form-control" required></textarea>
+
+                            <!-- <input type="text" id="description" name="description" class="form-control" onblur="validate(6)"> -->
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                      <div class="form-group col-sm-6 d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary custom-btn">ADD Company</button>
+                      </div>
+                      <div class="form-group col-sm-6 d-flex justify-content-start">
+                          <button type="reset" class="btn btn-primary custom-btn-btn">Reset</button>
+                      </div>
+                  </div>
+                  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('logo').addEventListener('change', function(event) {
+      console.log("Call Event");
+        var fileInput = event.target;
+        var file = fileInput.files[0];
+        if (file) {
+            var fileType = file.type;
+            if (fileType !== 'image/png') {
+                alert('Please select a PNG file.');
+                fileInput.value = ''; // Clear the input
+            }
+        }
+    });
+
+  document.getElementById('companyForm').addEventListener('submit', function(event) {
+      var form = event.target;
+      if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          alert('Please fill out all required fields correctly.');
+      }
+      form.classList.add('was-validated');
+  });
+});
+</script>
+
+</body>
+</html>

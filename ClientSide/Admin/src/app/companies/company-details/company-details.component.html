@@ -1,0 +1,66 @@
+<div class="formdiv content mat-elevation-z8">
+  <h2 style="color: #3f51b5">Register Company</h2>
+
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit(formGroup.value)"
+    class="form"
+    style="width: 500px"
+  >
+    <div style="display: flex; flex-direction: column; text-align: center">
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Company Name " formControlName="name" />
+        <mat-error
+          *ngIf="
+            !formGroup.controls['name'].valid &&
+            formGroup.controls['name'].touched
+          "
+        >
+          {{ emptyAlert }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="alias" formControlName="alias" />
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Company Website " formControlName="url" />
+
+        <mat-error
+          *ngIf="
+            !formGroup.controls['url'].valid &&
+            formGroup.controls['url'].touched
+          "
+        >
+          {{ emptyAlert }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Category" formControlName="category" />
+
+        <mat-error
+          *ngIf="
+            !formGroup.controls['category'].valid &&
+            formGroup.controls['category'].touched
+          "
+        >
+          {{ emptyAlert }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-element">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+          [disabled]="!formGroup.valid"
+        >
+          Save Company
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

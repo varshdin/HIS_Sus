@@ -1,0 +1,119 @@
+<section class="about_area section_gap bg-blues-new">
+    <div class="container">
+        <div class="row h_blog_item">
+            <div class="col-lg-6">
+                <div class="h_blog_img">
+                    <img class="img-fluid" src="./assets/img/about.png" alt="" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="h_blog_text">
+                    <div class="h_blog_text_inner left right">
+                        <h4>About us</h4>
+                        <p>
+                            Sustainability Monitor is part of an academic project at the Engineering and Informatics
+                            department of the <a target="_blank"
+                                href="https://www.frankfurt-university.de/en/">Frankfurt University of Applied
+                                Sciences</a>, with master students of the program <a target="_blank"
+                                href="https://www.frankfurt-university.de/de/studium/master-studiengange/high-integrity-systems-msc/fuer-studieninteressierte/">High
+                                Integrity Systems</a>.
+                        </p>
+                        <p>
+                            The project is led by Prof. Gabriela Alves Werb, Ph.D., Professor for Business Information
+                            Systems at the <a target="_blank"
+                                href="https://www.frankfurt-university.de/de/hochschule/fachbereich-2-informatik-und-ingenieurwissenschaften/kontakt/professorinnen-und-professoren-im-fachbereich-2/gabriela-alves-werb/">Frankfurt
+                                University of Applied Sciences</a> and Data Science Expert at the <a target="_blank"
+                                href="https://www.bundesbank.de/en/bundesbank/research/rdsc/about-the-rdsc/gabriela-alves-werb-850222">Deutsche
+                                Bundesbank</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="feature_area section_gap_top-team feature_area-2 title-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3 text-white">Meet Our Team</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="testi_slider col-md-12" *ngIf="teams.length !== 0">
+                <owl-carousel-o [options]="customOptions">
+                    <ng-container *ngFor="let team of teams">
+                        <ng-template carouselSlide id="{{team._id}}">
+                            <div class="testi_item">
+                                <div class="row text-center">
+                                    <div class="col-lg-12 col-md-12 pics_in_a_row" style="text-align: -webkit-center;">
+                                        <img class="image-team-2" [src]="team?.image" alt="" style="    height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    object-fit: cover;
+    transform: scale(1);" />
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="testi_text">
+                                            <p [innerHTML]="team?.name"
+                                                style="white-space: nowrap;     overflow: hidden;"></p>
+                                            <p [innerHTML]="team?.role"></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <a  href="{{team?.social_link.linkedin}}" target="_blank" style="    border: 0.51px solid #ffffff8c;
+                                        padding: 0.3rem;
+                                        border-radius: 5px;">
+                                        <svg style="height:20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#007bffed" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                                    </a></div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="testimonial_area section_gap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="main_title">
+                    <h2 class="mb-3">Behind the Scenes</h2>
+                    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="testi_slider col-md-12">
+                <owl-carousel-o [options]="sceneMediaCustomOptions">
+                    <ng-container *ngFor="let slide of sceneMedias">
+                        <ng-template carouselSlide id="{{slide + 1}}">
+                            <div class="testi_item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div style="    height: 245px;
+    transform: scale(1);">
+                                            <img class="img-fluid image-fit" [src]="slide" alt="" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</div>
