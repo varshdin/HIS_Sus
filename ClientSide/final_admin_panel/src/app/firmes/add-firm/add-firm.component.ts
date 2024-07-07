@@ -1,17 +1,16 @@
-// add-firms.component.ts
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../api.service';
+import { Component } from '@angular/core';
+import { DataService } from '../../data.service';
 
 @Component({
-  selector: 'app-add-firms',
-  templateUrl: './add-firms.component.html',
-  styleUrls: ['./add-firms.component.css'],
+  selector: 'app-add-firm',
+  templateUrl: './add-firm.component.html',
+  styleUrl: './add-firm.component.css'
 })
-export class AddFirmsComponent implements OnInit {
+export class AddFirmComponent {
   sectors: any[] = [];
   companyData: any = {}; // Object to hold form data
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: DataService) { }
 
   ngOnInit(): void {
     this.loadSector();

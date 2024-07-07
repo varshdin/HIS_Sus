@@ -1,0 +1,68 @@
+<div class="main-card mb-3 card">
+    <div class="card-body">
+      <h5 class="card-title">Add New Firms Here !</h5>
+      <form class="form-card" id="companyForm" name="companyForm" class="form-card" ng-submit="submitForm()" novalidate>
+        <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label class="form-control-label px-3">Company Name<span class="text-danger"> *</span></label>
+                <input type="text" id="cname" name="cname" placeholder="Enter Company Name" class="form-control" required >
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label class="form-control-label px-3">Company Alias(Short Name)<span class="text-danger"> *</span></label>
+                <input type="text" id="aname" name="aname" placeholder="Enter Company Short Name" class="form-control"  required>
+            </div>
+        </div>
+
+        <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label class="form-control-label px-3">Nace_Lev2_Id<span class="text-danger"> *</span></label>
+                <select id="Nace_Lev2_id" name="Nace_Lev2_id" class="form-control" required>
+                    <option value="">Please Select</option>
+                    <option *ngFor="let sector of sectors" [value]="sector">{{ sector }}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex">
+                <label class="form-control-label px-3">Company URL<span class="text-danger"> *</span></label>
+                <input type="url" id="curl" name="curl" placeholder="http://ABC/EFG.com" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-12 flex-column d-flex">
+                <label class="form-control-label px-3">Nace_Lev2_Id_Description<span class="text-danger"> *</span></label>
+                <input type="text" id="nace_Lev2_id_desc" name="nace_Lev2_id_desc" class="form-control" required>
+            </div>
+        </div>
+        <div class="row justify-content-between text-left">
+          <div class="form-group col-sm-6 flex-column d-flex">
+              <label class="form-control-label px-3">Sustainability_Url<span class="text-danger"> *</span></label>
+              <input type="url" id="surl" name="surl" placeholder="http://ABC/EFG.com" class="form-control" required>
+          
+          </div>
+          <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label px-3">Select Company Logo<span class="text-danger"> *</span></label>
+            <input type="file" id="logo" name="logo" class="form-control" accept="image/png" required>
+        </div>
+        
+      </div>
+        <div class="row justify-content-between text-left">
+            <div class="form-group col-12 flex-column d-flex">
+                <label class="form-control-label px-12">Description<span class="text-danger"> *</span></label>
+               <textarea id="description" name="description" class="form-control" required></textarea>
+
+                 <!-- <input type="text" id="description" name="description" class="form-control" onblur="validate(6)"> --> 
+            </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="form-group col-sm-6 d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary custom-btn">ADD Company</button>
+          </div>
+          <div class="form-group col-sm-6 d-flex justify-content-start">
+              <button type="reset" class="btn btn-primary custom-btn-btn">Reset</button>
+          </div>
+      </div>
+      
+    </form>
+    </div>
+  </div>
+
