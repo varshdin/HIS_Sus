@@ -1,0 +1,260 @@
+[
+    {
+      "name": "Gabriela Alves Werb",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Gabriela_+Alves_Werb.jpeg",
+      "social_link": {
+        "linkedin": "https://www.linkedin.com/in/gabrielaalveswerb/"
+      },
+      "role": "Project Coordinator"
+    },
+  {
+      "name": "Zehra Khan",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Zehra_Khan.jpeg",
+      "social_link": {
+        "linkedin": "https://www.linkedin.com/in/zehrajk/"
+      },
+      "role": "Web-Integration"
+  },
+  {
+      "name": "Ruchit Dobariya",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Ruchit_Dobariya.jpg",
+      "social_link": {
+        "linkedin": "https://www.linkedin.com/in/ruchit-dobariya"
+      },
+      "role": "Web-Integration" 
+  },
+  {
+      "name": "Milan Goti",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Milan_Goti.jpeg",
+      "social_link": {
+        "linkedin": "https://www.linkedin.com/in/milangoti100"
+      },
+      "role": "Web-Integration"
+  },
+  {
+      "name": "Siddharth Kothari",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Siddharth_Kothari.jpg",
+      "social_link": {
+        "linkedin": "https://www.linkedin.com/in/siddharth-kothari-2a468a114/"
+      },
+      "role": "Web-Integration"
+  },
+  {
+    "name": "Priyank Dudhat",
+    "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Priyank_Dudhat.jpeg",
+    "social_link": {
+      "linkedin": "https://www.linkedin.com/in/priyankdudhat13/"
+    },
+    "role": "Web-Integration"
+  },
+  {
+    "name": "Parth Saliya",
+    "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Parth_Saliya.jpeg",
+    "social_link": {
+      "linkedin": "https://www.linkedin.com/in/parth-saliya-09b814213/"
+    },
+    "role": "Web-Integration"
+  },
+  {
+    "name": "Milan Sangani",
+    "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Milan_Sangani.jpeg",
+    "social_link": {
+      "linkedin": "http://www.linkedin.com/in/milankumar-sangani-594162213"
+    },
+    "role": "Web-Integration"
+  },
+  {
+    "name": "Hardik Dudhat",
+    "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Hardik_Dudhat.JPG",
+    "social_link": {
+      "linkedin": "https://www.linkedin.com/in/hardikkumar-vrajlal-dudhat-a345b215a"
+    },
+    "role": "Web-Integration"
+  },
+  {
+    "name": "Sushmita Dahal",
+    "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Sushmita_Dahal.jpg",
+    "social_link": {
+      "linkedin": "https://www.linkedin.com/in/sushmita-dahal-a12443114"
+    },
+    "role": "Web-Optimisation"
+},
+{
+  "name": "Faiaz Sharaf",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Faiaz_Sharaf.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/faiazsharaf"
+  },
+  "role": "Admin-panel"
+},
+{
+  "name": "Kantish Chowdhury",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Kantish_Chowdhury.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/kantish-roy-chowdhury-15657331/"
+  },
+  "role": "Data Analyst"
+},
+{
+  "name": "Nikhil Bajaj",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Nikhil_Bajaj.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/nikhilbajaj1474/"
+  },
+  "role": "Visualization" 
+},
+{
+  "name": "Sneha Srinivasa",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Sneha_Srinivasa.png",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/sneha-gowda/"
+  },
+  "role": "Visualization" 
+},
+{
+  "name": "Ashlesh Mithur",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Ashlesh_Mithur.png",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/ashleshmithur/"
+  },
+  "role": "Visualization" 
+},
+{
+  "name": "Vedant Asawale",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Vedant_Asawale.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/vedant-asawale-80076b107/"
+  },
+  "role": "Visualization" 
+},
+{
+  "name": "Mustaqeem Khalid",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Mustaqeem_Khalid.JPG",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/raja-mustaqeem-khalid-8590b6116"
+  },
+  "role": "Backend Developer"
+},
+{
+  "name": "Ha Nguyen",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Ha_Nguyen.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/haa-nguyen/"
+  },
+  "role": "Visualization" 
+},
+{
+  "name": "Tung Le Thanh",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/TungLe_Thanh.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/tungle98/"
+  },
+  "role": "Data Collector" 
+},
+{
+  "name": "Luan Nguyen",
+  "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Luan_Nguyen.jpg",
+  "social_link": {
+    "linkedin": "https://www.linkedin.com/in/luan-nguyen-61b060153/"
+  },
+  "role": "Data Collector" 
+},
+ 
+    {
+      "name": "Md Mahmud Hasan",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/MdMahmud_Hasan.jpeg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/mahmud-dev/"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Jyotsana Shankar",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Jyotsana_Shankar.jpeg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/jyotsana-shankar/"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Minhajul Islam Rahid",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/MinhajulIslam_Rahid.jpeg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/rahid/"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Ali Abbas",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Ali_Abbas.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/aliabbas097"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Binit Bambhroliya",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Binit_Bambhroliya.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/binit-bambhroliya"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Nimra Aziz",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Nimra_Aziz.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/nimraaziz77/"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Raj Sonawala",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Raj_Sonawala.png",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/raj-sonawala-413601184/"
+      },
+      "role": "Data-Extraction"
+    },
+    {
+      "name": "Shoaib Iftikhar",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Shoaib_Iftikhar.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/shoaib-iftikhar-60a3a5169/"
+      },
+      "role": "Visualization"
+    },
+    {
+      "name": "Quazi Ameer Hammad",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/QuaziAmeer_Hammad.jpg",
+      "social_link": {
+        "linkedin" :  "http://www.linkedin.com/in/qazi-ameer-hammad"
+      },
+      "role": "Visualization"
+    },
+    {
+      "name": "Nikhitha Yerrathota",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Nikhitha_Yerrathota.jpeg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/nikhitha-yerrathota-7929061a1"
+      },
+      "role": "Visualization"
+    },
+    {
+      "name": "MD R M Yusuf Naeem",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/MD+R+M+Yusuf_Naeem.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/mahbubnayeem007/"
+      },
+      "role": "Visualization"
+    },
+    {
+      "name": "Sumit Chothani",
+      "image": "https://s3.amazonaws.com/sustainabilitymonitor.org/assets/img/team_members/Sumit_Chothani.jpg",
+      "social_link": {
+        "linkedin" :  "https://www.linkedin.com/in/mahbubnayeem007/"
+      },
+      "role": "Web-Integration"
+    }
+
+]
