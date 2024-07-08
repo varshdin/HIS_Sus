@@ -6,10 +6,13 @@ Router.post('/contactUs/user', UsersController._contactUsUser);
 
 //Firms
 Router.post('/get/firms', FirmController._getFirms);
+Router.post('/add/firm', FirmController._addFirm);
+
+Router.post('/get/sectors', FirmController._getSectors);
 Router.post('/get/firm/details', FirmController._getFirmDetails)
 
 // User controller
-Router.post('/get/members', UsersController._getTeamsMember);
+// Router.post('/get/members', UsersController._getTeamsMember);
 
 async function _publicAccess(req,res,next){
     try {

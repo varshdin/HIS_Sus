@@ -1,0 +1,192 @@
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <h5 class="card-title">Add New Firms Here !</h5>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{errorMessage}}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="successMessage">
+        {{ successMessage }}
+    </div>
+    <form #addFirm="ngForm" (ngSubmit)="_addFirm(addFirm)">
+      <div class="row">
+        <div class="form-group col-md-6 col-6">
+          <label for="firstname">Company Name*</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstname"
+            placeholder="Company Name"
+            name="com_name"
+            required
+            #com_name="ngModel"
+            ngModel
+          />
+          <label
+            for="recipient-name"
+            class="col-form-label text-error text-danger"
+            *ngIf="com_name.touched && com_name.invalid"
+          >
+            *Please enter your company name</label
+          >
+        </div>
+
+        <div class="form-group col-md-6 col-6">
+          <label for="com_ali_name">Company Alias(Short Name)*</label>
+          <input
+            type="text"
+            class="form-control"
+            id="com_ali_name"
+            placeholder="Company Alias(Short Name)"
+            name="com_ali_name"
+            required
+            #com_ali_name="ngModel"
+            ngModel
+          />
+          <label
+            for="recipient-name"
+            class="col-form-label text-error text-danger"
+            *ngIf="com_ali_name.touched && com_ali_name.invalid"
+          >
+            *Please enter company alias name</label
+          >
+        </div>
+        <div class="form-group col-sm-6 col-md-6 flex-column d-flex">
+            <label class="form-control-label">Nace_Lev2_Id<span class="text-danger"> *</span></label>
+            <select id="Nace_Lev2_id" name="nace_Lev2_id" ngModel #nace_Lev2_id="ngModel" class="form-control" required>
+                <option value="">Please Select</option>
+                <option *ngFor="let sector of sectors" [value]="sector.nace_lev2_id">{{ sector.nace_lev2_id }}</option>
+            </select>
+            <label
+            for="recipient-name"
+            class="col-form-label text-error text-danger"
+            *ngIf="nace_Lev2_id.touched && nace_Lev2_id.invalid"
+          >
+            *Please select nace_Lev2_id name</label
+          >
+        </div>
+        <div class="form-group col-sm-6 flex-column d-flex">
+            <label class="form-control-label">Company URL<span class="text-danger"> *</span></label>
+            <input type="url" id="curl" name="company_URL" #com_url="ngModel" placeholder="http://ABC/EFG.com" class="form-control" required ngModel>
+            <label
+            for="recipient-name"
+            class="col-form-label text-error text-danger"
+            *ngIf="com_url.touched && com_url.invalid"
+          >
+            *Please select com_url name</label
+          >
+        </div>
+
+        <div class="form-group col-md-12 col-12">
+            <label for="Nace_Lev2_Id_Description">Nace_Lev2_Id_Description*</label>
+            <textarea
+              type="text"
+              rows="4"
+              class="form-control"
+              id="Nace_Lev2_Id_Description"
+              placeholder="Nace_Lev2_Id_Description"
+              name="nace_Lev2_Id_Description"
+              required
+              #Nace_Lev2_Id_Description="ngModel"
+              ngModel
+              style="min-height: 150px"
+            ></textarea>
+            <label
+              for="recipient-name"
+              class="col-form-label text-error text-danger"
+              *ngIf="Nace_Lev2_Id_Description.touched && Nace_Lev2_Id_Description.invalid"
+            >
+              *Please enter Nace_Lev2_Id_Description name</label
+            >
+          </div>
+
+        <div class="form-group col-md-12 col-12">
+          <label for="Sustainability_Url">Sustainability_Url*</label>
+          <input
+            type="Sustainability_Url"
+            class="form-control"
+            id="Sustainability_Url"
+            placeholder="Sustainability_Url"
+            name="sustainability_URL"
+            required
+            #Sustainability_Url="ngModel"
+            ngModel
+          />
+          <label
+            for="recipient-name"
+            class="col-form-label text-error text-danger"
+            *ngIf="Sustainability_Url.touched && Sustainability_Url.invalid"
+          >
+            *Please enter Sustainability_Url</label
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="company_logo">Company logo*</label>
+        <input
+          type="file"
+          class="form-control"
+          id="company_logo"
+          placeholder="company_logo number"
+          name="company_logo"
+          #company_logo="ngModel"
+          ngModel
+        />
+        <label
+          for="recipient-name"
+          class="col-form-label text-error text-danger"
+          *ngIf="company_logo.touched && company_logo.invalid"
+        >
+          *Please upload company logo</label
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="description">Description*</label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="Your description"
+          rows="5"
+          name="description"
+          required
+          #description="ngModel"
+          ngModel
+          style="min-height: 150px"
+        ></textarea>
+        <label
+          for="recipient-name"
+          class="col-form-label text-error text-danger"
+          *ngIf="description.touched && description.invalid"
+        >
+          *Please enter description</label
+        >
+      </div>
+      <button
+        type="reset"
+        class="btn btn-primary primary-btn fr"
+        style="float: right; margin-top: 20px; margin-right: 10px"
+        routerLink="/firms">
+        Back
+      </button>
+      <button
+        type="reset"
+        class="btn btn-primary primary-btn fr"
+        style="float: right; margin-top: 20px; margin-right: 10px"
+        (click)="_reset(addFirm)">
+        Reset
+      </button>
+      <button
+        type="submit"
+        value="submit"
+        class="btn btn-primary primary-btn fr"
+        [disabled]="addFirm.invalid"
+        style="float: right; margin-top: 20px; margin-right: 10px"
+      >
+        Submit <i class="fa fa-spinner fa-spin" *ngIf="isLoad"></i>
+      </button>
+    </form>
+  </div>
+</div>

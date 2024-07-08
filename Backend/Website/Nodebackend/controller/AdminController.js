@@ -103,32 +103,32 @@ exports.dataMakerScript = async () => {
 
 exports.teamDataMakerScript = async () => {
     try {
-        var teamData = {};
+        // var teamData = {};
 
-        for (let index = 0; index < teams.length; index++) {
-            const user = teams[index];
-            teamData = { 
-                name: user.name,
-                image: user.image,
-                role: user.role,
-                social_link: user.social_link
-            }
+        // for (let index = 0; index < teams.length; index++) {
+        //     const user = teams[index];
+        //     teamData = { 
+        //         name: user.name,
+        //         image: user.image,
+        //         role: user.role,
+        //         social_link: user.social_link
+        //     }
 
-            var condition = { name: user.name };
-            let options = {}
+        //     var condition = { name: user.name };
+        //     let options = {}
 
-            var userSave = await Model._findOne(_Team, condition, options, false)
-            if (!userSave) {
-                userSave = await Model._create(_Team, teamData);
-                if (!userSave) console.log('Oops! user is not created!');
-            } else {
-                userSave.image = user.image;
-                userSave.social_link = user.social_link;
-                userSave.save();
-            }
+        //     var userSave = await Model._findOne(_Team, condition, options, false)
+        //     if (!userSave) {
+        //         userSave = await Model._create(_Team, teamData);
+        //         if (!userSave) console.log('Oops! user is not created!');
+        //     } else {
+        //         userSave.image = user.image;
+        //         userSave.social_link = user.social_link;
+        //         userSave.save();
+        //     }
 
            // console.log('------------------------------------------', userSave);
-        }
+        // }
     } catch (error) {
         console.log(error)
         // __.res(res, error.message, 500)

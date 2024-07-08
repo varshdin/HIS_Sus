@@ -142,27 +142,27 @@ Have a nice day,
 
 
 // Get Teams 
-exports._getTeamsMember = async (req, res) => {
-    try {
-        var condition = {
-            status: 'active'
-        };
-        var options = {
-            skip: 0
-        };
+// exports._getTeamsMember = async (req, res) => {
+//     try {
+//         var condition = {
+//             status: 'active'
+//         };
+//         var options = {
+//             skip: 0
+//         };
 
-        if (req.body.options) {
-            options.limit = Number(req.body.options.limit) || 40;
-            options.sort = (req.body.options.sort) || "_id";
-            options.skip = Number(req.body.options.skip) || 0;
-        }
+//         if (req.body.options) {
+//             options.limit = Number(req.body.options.limit) || 40;
+//             options.sort = (req.body.options.sort) || "_id";
+//             options.skip = Number(req.body.options.skip) || 0;
+//         }
 
-        const teams = await Model._find(_Team, condition, options)
-        if (!teams) throw new Error('Oops! teams are not available')
+//         const teams = await Model._find(_Team, condition, options)
+//         if (!teams) throw new Error('Oops! teams are not available')
 
-        __.res(res, teams, 200)
+//         __.res(res, teams, 200)
 
-    } catch (error) {
-        __.res(res, error.message, 500)
-    }
-}
+//     } catch (error) {
+//         __.res(res, error.message, 500)
+//     }
+// }
