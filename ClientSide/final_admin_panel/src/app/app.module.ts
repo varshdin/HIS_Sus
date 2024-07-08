@@ -11,6 +11,7 @@ import { FirmesComponent } from './firmes/firmes.component';
 import { SectorsComponent } from './sectors/sectors.component';
 import { AddFirmComponent } from './firmes/add-firm/add-firm.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -71,22 +71,20 @@
     >
         <thead>
         <tr>
-            <th>Name</th>
-            <th>-</th>
-            <th>-</th>
-            <th>-</th>
-            <th>-</th>
-            <th>-</th>
+            <th>NACE_LEV2_ID</th>
+            <th>NACE_LEV2_CODE</th>
+            <th>NACE_LEV2_DESC</th>
+            <th>NACE_LEV1_CODE</th>
+            <th>NACE_LEV1_DESC</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of sectors">
-            <td>{{item}}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+        <tr *ngFor="let sec of sectors">
+            <td>{{ sec.nace_lev2_id }}</td>
+            <td>{{ sec.nace_lev2_code }}</td>
+            <td>{{ sec.nace_lev2_desc }}</td>
+            <td>{{ sec.nace_lev1_code }}</td>
+            <td>{{ sec.nace_lev1_desc }}</td>
         </tr>
         </tbody>
     </table>

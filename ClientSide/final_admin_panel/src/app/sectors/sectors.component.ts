@@ -8,22 +8,29 @@ import { DataService } from '../data.service';
 })
 export class SectorsComponent implements OnInit {
   sectors: any[] = [];
-  constructor(private apiService: DataService) { }
+  constructor(private _service: DataService) { }
 
   ngOnInit(): void {
     this.loadSector()
   }
 
-  loadSector() {
-    this.apiService.getAllsector().subscribe(
-      (data) => {
-        this.sectors = data;
-        console.log(this.sectors);
-      },
-      (error) => {
-        console.error('Error fetching sectors', error);
+  async loadSector(condition = {}, options = {}){
+    if (this.sectors.length !== 0) {
+      options = {
+        skip: this.sectors.length
       }
-    );
-  }
+    }
 
+    this._service.__post("/get/sectors", { condition: condition, options: options}).subscribe(
+      (response : any) => {
+        for (let index = 0; index < response.length; index++) {
+          const firm = response[index];
+          this.sectors.push(firm);
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 }
