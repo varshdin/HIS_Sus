@@ -41,7 +41,7 @@ export class RepositoryViewComponent implements OnInit {
     setTimeout(() => {
       this.directive_call();
     }, 500);
-    this.getCompanies();
+    this.getReports();
   }
 
   selectedFirm(company: any) {
@@ -78,7 +78,7 @@ export class RepositoryViewComponent implements OnInit {
     this.openFolderSeeFile();
   }
 
-  async getCompanies(condition = {}, options = {}) {
+  async getReports(condition = {}, options = {}) {
     if (this.companies.length !== 0) {
       options = {
         skip: this.companies.length
@@ -88,14 +88,16 @@ export class RepositoryViewComponent implements OnInit {
     // if (this.firms.length !== 0 || this.notGetMoreFirm == 0)
     //   return false;
 
-    this._service.__post("/get/firms", { condition: condition, options: options }).subscribe(
+    this._service.__post("/get/reports", { condition: condition, options: options }).subscribe(
       (response: any) => {
+        console.log(response)
         this.notGetMoreFirm = response.length;
-        for (let index = 0; index < response.length; index++) {
-          const firm = response[index];
-          firm.reports = (firm.data_link).split(',');
-          this.companies.push(firm);
-        }
+          this.companies = response;
+        // for (let index = 0; index < response.length; index++) {
+        //   const firm = response[index];
+        //   firm.reports = (firm.data_link).split(',');
+        //   this.companies.push(firm);
+        // }
       },
       error => {
         console.log(error)
@@ -112,7 +114,7 @@ export class RepositoryViewComponent implements OnInit {
   }
 
   viewMore(): void {
-    this.getCompanies();
+    this.getReports();
   }
 
   openFolderSeeFile(){

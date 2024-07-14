@@ -6,10 +6,13 @@ Router.post('/contactUs/user', UsersController._contactUsUser);
 
 //Firms
 Router.post('/get/firms', FirmController._getFirms);
+Router.post('/get/firms', FirmController._getFirms);
 Router.post('/add/firm', LOGO_STORAGE.single('logo'), FirmController._addFirm);
 
 Router.post('/get/sectors', FirmController._getSectors);
 Router.post('/get/firm/details', FirmController._getFirmDetails)
+
+Router.post('/get/reports', FirmController._getReports);
 
 // User controller
 // Router.post('/get/members', UsersController._getTeamsMember);

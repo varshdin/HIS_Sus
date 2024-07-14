@@ -23,9 +23,9 @@
                 <div class="row mb-5">
                     <div class="grid-prod" *ngIf="firmDetails?.reports.length !== 0">
                         <div class="prod-grid" *ngFor="let report of firmDetails?.reports">
-                            <a [href]="getPDFLink(report)" title="{{firmDetails?.company_name}}" target="_blank" (click)="openPDF(report)">
+                            <a [href]="report.s3_url_production" title="{{report?.report_filename}}" target="_blank">
                                 <img src='/assets/img/pdf.png' alt="kalita">
-                                <h6 class="mt-1" [innerHTML]="_getreportsName(report)"></h6>
+                                <h6 class="mt-1" [innerHTML]="report?.report_filename"></h6>
                             </a>
                         </div>
                     </div>

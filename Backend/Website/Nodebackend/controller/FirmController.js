@@ -137,7 +137,6 @@ exports._getFirmDetails = async (req, res) => {
         
         // const firms = await Model._findOne(_Firm, condition, options)
         // if (!firms) throw new Error('Oops! firm data is not available at the moment')
-
         __.res(res, firms, 200)
 
     } catch (error) {
@@ -147,13 +146,31 @@ exports._getFirmDetails = async (req, res) => {
 
 function getAWSCompanyById(id) {
     return new Promise((resolve, reject) => {
-        AWSClient.query(`SELECT * FROM companies where company_id = ${id}`, (err, res) => {
-            if (err) {
-                console.log(err);
-                reject(new Error('Oops! firm are not available'));
-            } else {
-                resolve(res.rows);
+        const companyQuery = `SELECT * FROM companies WHERE company_id = ${id}`;
+        const reportsQuery = `SELECT * FROM reports WHERE company_id = ${id}`;
+
+        // Execute the company query
+        AWSClient.query(companyQuery, (companyErr, companyRes) => {
+            if (companyErr) {
+                console.log(companyErr);
+                return reject(new Error('Oops! Company details are not available'));
             }
+
+            // Execute the reports query
+            AWSClient.query(reportsQuery, (reportsErr, reportsRes) => {
+                if (reportsErr) {
+                    console.log(reportsErr);
+                    return reject(new Error('Oops! Reports data is not available'));
+                }
+
+                // Combine company details and reports data
+                const result = {
+                    company: companyRes.rows[0], // Assuming company_id is unique, so only one row is expected
+                    reports: reportsRes.rows
+                };
+
+                resolve(result);
+            });
         });
     });
 }
@@ -174,8 +191,6 @@ const uploadFileToS3 = (file) => {
 exports._addFirm = async(req,res)=>{
     try {
         const logo = req.file
-        console.log(req.files);
-        console.log(req.file);
         req.body = __._form(req.body)
 
         try {
@@ -266,3 +281,79 @@ async function addFirm(firmData) {
       throw new Error('Error inserting firm');
     }
   }
+
+
+  
+
+  exports._getReports = async (req, res) => {
+    try {
+        var condition = {};
+        var options = {
+            limit: 10,
+            sort: "_id",
+            skip: 0,
+            select: "name logo reports"
+        };
+       
+
+        if (req.body.options) {
+            options.limit = Number(req.body.options.limit) || 40;
+            options.sort = (req.body.options.sort) || "_id";
+            options.skip = Number(req.body.options.skip) || 0;
+        }
+
+        options.populate = { }
+        // Calculate the skip value based on the page number
+        if (req.body.page) {
+            options.skip = (Number(req.body.page) - 1) * options.limit;
+        }
+        var reports = await getAWSreports(options)
+                .then((rows) => {
+                   return rows;
+                })
+                .catch((err) => {
+                    throw new Error('Oops! reports are not available')
+                });
+
+        __.res(res, reports, 200)
+
+    } catch (error) {
+        __.res(res, error.message, 500)
+    }
+}
+
+
+function getAWSreports(options) {
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT 
+                company_id,
+                company_alias,
+                json_agg(
+                    json_build_object(
+                        'report_id', report_id,
+                        'report_filename', report_filename,
+                        's3_url_production', s3_url_production,
+                        'report_extension', report_extension,
+                        'report_type', report_type,
+                        'report_language', report_language,
+                        'report_year', report_year
+                    ) ORDER BY report_year
+                ) AS reports
+            FROM 
+                reports
+            GROUP BY 
+                company_id, company_alias
+            ORDER BY 
+                company_alias;
+        `;
+
+        AWSClient.query(query, (err, res) => {
+            if (err) {
+                reject(new Error('Oops! Sectors are not available......................'));
+            } else {
+                resolve(res.rows);
+            }
+        });
+    });
+}
