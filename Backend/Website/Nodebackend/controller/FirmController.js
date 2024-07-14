@@ -158,13 +158,34 @@ function getAWSCompanyById(id) {
     });
 }
 
+// Upload file to S3
+const uploadFileToS3 = (file) => {
+    const fileStream = fs.createReadStream(file.path);
+    const params = {
+      Bucket: process.env.S3_BUCKET_NAME,
+      Key: file.originalname,
+      Body: fileStream,
+      ContentType: file.mimetype,
+    };
+  
+    return S3.upload(params).promise();
+  };
 
 exports._addFirm = async(req,res)=>{
     try {
+        const logo = req.file
+        console.log(req.files);
+        console.log(req.file);
         req.body = __._form(req.body)
-        console.log(req.body);
 
-                // Assuming you have the firm data from req.body
+        try {
+            const result = await uploadFileToS3(logo);
+            console.log('File uploaded successfully', result.Location)
+          } catch (error) {
+            console.log('Failed to upload file', error)
+          }
+
+        // Assuming you have the firm data from req.body
         const firmData = {
             company_name: req.body.com_name,
             company_alias: req.body.com_ali_name,

@@ -7,6 +7,7 @@ path = module.exports = require("path");
 fs = module.exports = require("fs");
 randomString = module.exports = require("randomstring");
 logger = module.exports = require("./common/logger");
+const AWS = module.exports = require('aws-sdk');
 
 _ = module.exports = require("underscore");
 request = module.exports = require('request');
@@ -34,49 +35,19 @@ if (CONFIG.MODE == "Development") {
   app.use(cors());
 }
 
+var multer = require('multer')
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, 'public/images/companies/uploaded-logo'))
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.' + __.ext(file.originalname))
+  }
+})
+LOGO_STORAGE = module.exports = multer({ storage: storage })
+
 // MAIL
 module.exports = _Mail = require("./mails/mail.js");
-
-//Database connection
-
-// mongoose = module.exports = require("mongoose");
-// mongoose.connect(CONFIG.DB_URL, {
-//   useCreateIndex: true,
-//   useNewUrlParser: true
-// });
-
-// const db = mongoose.connection;
-// db.on('error',function(e){
-// 	logger.error('Error while connection database',0);
-// })
-
-
-// db.once('open',function(d){
-//   logger.info('Database connected successfully');    
-
-// //   require('./cron/charity-data');
-
-//     // Admins
-//     if(CONFIG.CREATE_ADMIN){
-//         const pass = "admin@123123";
-//         CONFIG.ADMINS.forEach(admin =>{
-//             Model._create(_Admin,{
-//                 name : admin.split('@')[0],
-//                 password : __._hashPass(pass),
-//                 email : admin
-//             })
-//             logger.info('new Admin Created', admin)
-//         })
-//     }
-
-//     if(CONFIG.CREATE_SETTING) {
-//       var maintenance = Model._create(_Setting, {})
-//       if(maintenance) {
-//         CONFIG.CREATE_SETTING = false;
-//       }
-//     }
-// })
-
 
 const { Client } = require('pg');
 
@@ -89,24 +60,18 @@ AWSClient = module.exports = new Client({
   port: 5432, // or the port you specified
 });
 
-// AWSClient = module.exports = new Client({
-//   user: 'fuas',
-//   host: 'localhost',
-//   database:'Sustainability',
-//   password: 'fuas2022!',
-//   port: 5432, // or the port you specified
-// });
-
 AWSClient.connect().then(() => {
   console.log("Aws Data base connect successful")
 }).catch((error) => {
   console.log(error);
 } );
 
-//Models
-Model = require("./models/__init__");
-// const adminRouter = require('./admin-router');
-// app.use('/master', adminRouter);
+// Configure AWS S3
+S3 = module.exports = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -117,10 +82,6 @@ sendmail = module.exports = require('sendmail')();
 
 //Controllers
 require("./controller/__init__");
-
-// Data maker scripts
-// AdminController.dataMakerScript();
-AdminController.teamDataMakerScript();
 
 //Routing
 const API = require("./routes/api");
