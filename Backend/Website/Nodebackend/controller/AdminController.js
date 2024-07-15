@@ -59,34 +59,7 @@ exports.dataMakerScript = async () => {
                     firmSave.web_link = firm.web_link;
                     firmSave.reports = firm.dow_reports_link;
                     firmSave.wordcloud = firm.wordcloud;
-                    // if (firm.dow_reports_link.length !== 0) {
-                    //     for (let index = 0; index < firm.dow_reports_link.length; index++) {
-                    //         let newReportLink = firm.dow_reports_link[index];
-                    //         let checkAvailableOrNot = false;
-                    //         for (let index = 0; index < firmSave.reports.length; index++) {
-                    //             let oldReportLink = firmSave.reports[index];
-                    //             if (oldReportLink.split('/')[oldReportLink.split('/').length - 1] === newReportLink.split('/')[newReportLink.split('/').length - 1])
-                    //                 checkAvailableOrNot = true;
-                    //         }
-                    //         if (checkAvailableOrNot)
-                    //             firmSave.reports.push(newReportLink);
-                    //     }
-                    // }
-
-                    // if (firm.wordcloud.length !== 0) {
-                    //     for (let index = 0; index < firm.wordcloud.length; index++) {
-                    //         let newCloudReportLink = firm.wordcloud[index];
-                    //         let checkAvailableOrNot = false;
-                    //         for (let index = 0; index < firmSave.wordcloud.length; index++) {
-                    //             let oldCloudReportLink = firmSave.wordcloud[index];
-                    //             if (oldCloudReportLink.split('/')[oldCloudReportLink.split('/').length - 1] === newCloudReportLink.split('/')[newCloudReportLink.split('/').length - 1])
-                    //                 checkAvailableOrNot = true;
-                    //         }
-                    //         if (checkAvailableOrNot)
-                    //             firmSave.wordcloud.push(newCloudReportLink);
-                    //     }
-                    // }
-
+                 
                     firmSave.save();
                 }
                 
@@ -103,32 +76,6 @@ exports.dataMakerScript = async () => {
 
 exports.teamDataMakerScript = async () => {
     try {
-        // var teamData = {};
-
-        // for (let index = 0; index < teams.length; index++) {
-        //     const user = teams[index];
-        //     teamData = { 
-        //         name: user.name,
-        //         image: user.image,
-        //         role: user.role,
-        //         social_link: user.social_link
-        //     }
-
-        //     var condition = { name: user.name };
-        //     let options = {}
-
-        //     var userSave = await Model._findOne(_Team, condition, options, false)
-        //     if (!userSave) {
-        //         userSave = await Model._create(_Team, teamData);
-        //         if (!userSave) console.log('Oops! user is not created!');
-        //     } else {
-        //         userSave.image = user.image;
-        //         userSave.social_link = user.social_link;
-        //         userSave.save();
-        //     }
-
-           // console.log('------------------------------------------', userSave);
-        // }
     } catch (error) {
         console.log(error)
         // __.res(res, error.message, 500)

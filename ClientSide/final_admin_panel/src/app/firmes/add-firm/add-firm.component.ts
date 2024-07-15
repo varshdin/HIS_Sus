@@ -12,6 +12,9 @@ export class AddFirmComponent {
   isLoad: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
+  fileValid: boolean = false;
+  fileError: string = '';
+  selectedFile: File | null = null;
 
   constructor(private _service: DataService) { }
 
@@ -22,30 +25,7 @@ export class AddFirmComponent {
   }
   
   
-  submitForm(companyData: any) {
-    // this.apiService.postCompany(companyData).subscribe(
-    //   response => {
-    //     console.log('Company added successfully:', response);
-    //     alert('Company added successfully!');
-    //     // Optionally reset form fields or perform other actions
-    //   },
-    //   error => {
-    //     console.error('Error adding company:', error);
-    //     alert('Failed to add company. Please try again.');
-    //   }
-    // );
-  }
-
   loadSector() {
-    // this.apiService.getAllsector().subscribe(
-    //   (data) => {
-    //     this.sectors = data;
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching sectors', error);
-    //   }
-    // );
-
     this._service.__post("/get/sectors", { condition: {}, options: {}}).subscribe(
       (response : any) => {
         for (let index = 0; index < response.length; index++) {
@@ -59,20 +39,48 @@ export class AddFirmComponent {
     )
   }
 
-  onSubmit() {
-    this.submitForm(this.companyData);
-    console.log('New Firm Added');
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+
+      if (fileExtension !== 'png') {
+        this.fileError = 'Only PNG files are allowed';
+        this.fileValid = false;
+        this.selectedFile = null;
+      } else {
+        this.fileError = '';
+        this.fileValid = true;
+        this.selectedFile = file;
+      }
+    } else {
+      this.fileError = 'Please upload a file';
+      this.fileValid = false;
+      this.selectedFile = null;
+    }
   }
 
   _addFirm(form: any): any {
     this.isLoad = true;
     this.errorMessage = '';
-    if (!form.valid) {
+    if (!form.valid || !this.fileValid || !this.selectedFile) {
       this.isLoad = false;
       this.errorMessage = 'Oops! Please enter valid form fill and try again.';
       return false;
     }
-    this._service.__post('/add/firm', form.value)
+    const formData = new FormData();
+    formData.append('com_name', form.value.com_name);
+    formData.append('com_ali_name', form.value.com_ali_name);
+    formData.append('nace_Lev2_id', form.value.nace_Lev2_id);
+    formData.append('company_URL', form.value.company_URL);
+    formData.append('nace_Lev2_Id_Description', form.value.nace_Lev2_Id_Description);
+    formData.append('sustainability_URL', form.value.sustainability_URL);
+    formData.append('company_logo', form.value.company_logo);
+    formData.append('description', form.value.description);
+    formData.append('logo', this.selectedFile  as Blob);
+    // Log FormData entries
+    this._service.__post('/add/firm', formData)
       .subscribe((response) => {
         this.successMessage = response;
         form.reset()

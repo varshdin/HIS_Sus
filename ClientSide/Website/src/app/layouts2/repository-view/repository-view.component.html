@@ -52,7 +52,7 @@
                             <div class="folder-icon">
                                 <fa-icon  class="folder-icon-color" [icon]="faFolder"></fa-icon>
                             </div>
-                            <div class="folder-name">{{company?.name}}</div>
+                            <div class="folder-name">{{company?.company_alias}}</div>
                         </button>
                     </div>
                 </div>
@@ -67,19 +67,19 @@
             <div class="card-body d-none" id="filesGroup" *ngIf="selectedCompany">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a id="backToFolders"><fa-icon [icon]="faFolder"></fa-icon>&nbsp;Folders</a></li>
-                    <li class="breadcrumb-item active">{{ selectedCompany?.name }}</li>
+                    <li class="breadcrumb-item active">{{ selectedCompany?.company_alias }}</li>
                 </ol>
                 <div id="main-files" class="d-flex align-items-stretch flex-wrap flex-column">
                     <ng-container *ngIf="selectedCompany?.reports.length != 0">
                         <div class="d-inline-flex" *ngFor="let report of selectedCompany?.reports">
                             <!-- [href]="report" -->
-                            <a title="{{selectedCompany?.name}}" target="_blank" [href]="getPDFLink(report)" (click)="openPDF(report)">
+                            <a title="{{selectedCompany?.report_filename}}" target="_blank" [href]="report?.s3_url_production">
                                 <button class="folder-container">
                                     <div class="folder-icon">
                                         <fa-icon class="file-icon-color" [icon]="faFile"></fa-icon>
                                     </div>
                                     <div class="folder-name">
-                                        {{_getReportsName(report)}}
+                                        {{report?.report_filename}}
                                     </div>
                                 </button>
                             </a>

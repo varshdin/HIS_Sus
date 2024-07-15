@@ -30,8 +30,8 @@ export class FirmDetailsComponent implements OnInit {
 
     this._service.__post("/get/firm/details", { condition, options: options }).subscribe(
       (response: any) => {
-        this.firmDetails = response[0];
-        this.firmDetails.reports = (response[0].data_link).split(',');
+        this.firmDetails = response['company'];
+        this.firmDetails.reports = response['reports'];
       },
       error => {
         console.log(error)
@@ -39,26 +39,8 @@ export class FirmDetailsComponent implements OnInit {
     )
   }
 
-  _getreportsName(company: string) {
-    return company.substring(company.lastIndexOf('/') + 1);
-  }
-
-  getCloudName(imgUrl: string) {
-    var name = imgUrl.substring(imgUrl.lastIndexOf('/') + 1)
-    return name.split('.')[0].split('-')[1];
-  }
-
-
   getLogo(logo: string): string {
     return (logo) ? environment.Logos_link + logo : '/assets/img/default.jpeg';
-  }
-
-  getPDFLink(pdf: string) {
-    return environment.Data_link + pdf;
-  }
-
-  openPDF(pdf : string) {
-    // window.open(environment.Data_link + pdf, '_blank');
   }
 
 }

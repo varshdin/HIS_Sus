@@ -130,14 +130,16 @@
           placeholder="company_logo number"
           name="company_logo"
           #company_logo="ngModel"
+          (change)="onFileSelected($event)"
+          accept="image/png" 
           ngModel
         />
         <label
           for="recipient-name"
           class="col-form-label text-error text-danger"
-          *ngIf="company_logo.touched && company_logo.invalid"
+          *ngIf="fileError && !fileValid"
         >
-          *Please upload company logo</label
+          *{{fileError}}</label
         >
       </div>
 
@@ -182,10 +184,10 @@
         type="submit"
         value="submit"
         class="btn btn-primary primary-btn fr"
-        [disabled]="addFirm.invalid"
+        [disabled]="addFirm.invalid || !fileValid"
         style="float: right; margin-top: 20px; margin-right: 10px"
-      >
-        Submit <i class="fa fa-spinner fa-spin" *ngIf="isLoad"></i>
+        >
+        Submit<i class="fa fa-spinner fa-spin" *ngIf="isLoad"></i>
       </button>
     </form>
   </div>
