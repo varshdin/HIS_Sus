@@ -14,6 +14,10 @@ Router.post('/get/firm/details', FirmController._getFirmDetails)
 
 Router.post('/get/reports', FirmController._getReports);
 
+// ScriptController
+
+Router.post('/start/collecting/reports', ScriptController._startCollectingReports);
+
 // User controller
 // Router.post('/get/members', UsersController._getTeamsMember);
 

@@ -7,7 +7,7 @@ path = module.exports = require("path");
 fs = module.exports = require("fs");
 randomString = module.exports = require("randomstring");
 logger = module.exports = require("./common/logger");
-const AWS = module.exports = require('aws-sdk');
+AWS = module.exports = require('aws-sdk');
 
 _ = module.exports = require("underscore");
 request = module.exports = require('request');
@@ -66,12 +66,10 @@ AWSClient.connect().then(() => {
   console.log(error);
 } );
 
+AWS.config.update({region: 'us-east-1'});
+
 // Configure AWS S3
-S3 = module.exports = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
+S3 = module.exports = new AWS.S3();
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());

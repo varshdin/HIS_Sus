@@ -8,7 +8,7 @@
 </ul> -->
 <div class="tabs-animation">
   <div class="row">
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-6 col-xl-4">
       <div
         class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-success border-success"
       >
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-6 col-xl-4">
       <div
         class="card mb-3 widget-chart widget-chart2 text-left card-btm-border card-shadow-primary border-primary"
       >
@@ -64,5 +64,19 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-8 col-xl-8">
+      <div class="main-card mb-3 card">
+      <div class="card-body">
+      <h5 class="card-title">Scripts</h5>
+      <button class="mb-2 mr-2 btn btn-primary" (click)="getReports()">
+        Collect reports
+        <i *ngIf="isGettingReports" class="fa fa-xl fa-spinner fa-spin " style="    font-size: 21px;
+        animation: fa-spin 1.5s infinite linear;
+    "></i> 
+      </button>
+      </div>
+      </div>
+      </div>
   </div>
 </div>
+

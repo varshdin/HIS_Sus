@@ -15,6 +15,7 @@ export class AddFirmComponent {
   fileValid: boolean = false;
   fileError: string = '';
   selectedFile: File | null = null;
+  selectedSectorDescription: string = '';
 
   constructor(private _service: DataService) { }
 
@@ -96,5 +97,15 @@ export class AddFirmComponent {
     addFirm.reset();
     this.errorMessage = '';
     this.successMessage = '';
+  }
+
+
+  onSectorChange(sectorId: any): void {
+    const selectedSector = this.sectors.find(sector => sector.nace_lev2_id === sectorId);
+    if (selectedSector) {
+      this.selectedSectorDescription = selectedSector.nace_lev2_desc;
+    } else {
+      this.selectedSectorDescription = '';
+    }
   }
 }
