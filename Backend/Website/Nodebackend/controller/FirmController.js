@@ -206,8 +206,8 @@ exports._addFirm = async(req,res)=>{
         const firmData = {
             company_name: req.body.com_name,
             company_alias: req.body.com_ali_name,
-            nace_lev2_id: req.body.nace_lev2_id,
-            nace_lev1_desc: req.body.Nace_Lev2_Id_Description,
+            nace_lev2_id: req.body.nace_Lev2_id,
+            nace_lev1_desc: req.body.nace_Lev2_Id_Description,
             company_url: req.body.company_URL,
             sustainability_url: req.body.sustainability_URL,
             logo_link: req.body.company_logo,
