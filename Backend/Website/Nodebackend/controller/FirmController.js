@@ -176,25 +176,27 @@ function getAWSCompanyById(id) {
 }
 
 // Upload file to S3
-const uploadFileToS3 = (file) => {
-    const fileStream = fs.createReadStream(file.path);
+const uploadFileToS3 = (file, companyFileName) => {
+    const filePath = 'public/images/companies/uploaded-logo/'+ file.filename;
+    const fileContent = fs.readFileSync(filePath);
+
     const params = {
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: file.originalname,
-      Body: fileStream,
-      ContentType: file.mimetype,
+        Bucket: 'sustainabilitymonitor.org',
+        Key: 'assets/img/firms_images/'+companyFileName + '.' + __.ext(file.filename),
+        Body: fileContent
     };
-  
+
     return S3.upload(params).promise();
   };
 
 exports._addFirm = async(req,res)=>{
     try {
         const logo = req.file
+        console.log(req.file, req.body.com_ali_name)
         req.body = __._form(req.body)
 
         try {
-            const result = await uploadFileToS3(logo);
+            const result = await uploadFileToS3(logo, req.body.com_ali_name);
             console.log('File uploaded successfully', result.Location)
           } catch (error) {
             console.log('Failed to upload file', error)

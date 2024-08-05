@@ -83,7 +83,7 @@ export class AddFirmComponent {
     this._service.__post('/add/firm', formData)
       .subscribe((response) => {
         this.successMessage = response;
-        form.reset()
+        // form.reset()
         this.isLoad = false;
       }, error => {
         this.errorMessage = error;
