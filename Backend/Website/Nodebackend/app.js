@@ -7,7 +7,7 @@ path = module.exports = require("path");
 fs = module.exports = require("fs");
 randomString = module.exports = require("randomstring");
 logger = module.exports = require("./common/logger");
-const AWS = module.exports = require('aws-sdk');
+AWS = module.exports = require('aws-sdk');
 
 _ = module.exports = require("underscore");
 request = module.exports = require('request');

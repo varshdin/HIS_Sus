@@ -30,6 +30,7 @@
     "handlebars-layouts": "^3.1.4",
     "helmet": "^3.16.0",
     "html-pdf": "^3.0.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.24.0",
     "mongodb": "^4.13.0",
