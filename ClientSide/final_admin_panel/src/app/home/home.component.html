@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8 col-xl-8">
+    <!-- <div class="col-lg-8 col-xl-8">
       <div class="main-card mb-3 card">
       <div class="card-body">
       <h5 class="card-title">Scripts</h5>
@@ -76,7 +76,33 @@
       </button>
       </div>
       </div>
-      </div>
+      </div> -->
+      <div class="col-lg-8 col-xl-8">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <h5 class="card-title">Scripts</h5>
+                <div class="d-flex justify-content-between w-100">
+                    <!-- First Button -->
+                    <button class="btn btn-primary" (click)="getReports()">
+                        Collect reports
+                        <i *ngIf="isGettingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button>
+                    <!-- Second Button -->
+                    <button class="btn btn-yellow">
+                        Download Reports
+                        <i *ngIf="" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button>
+                    <!-- Third Button -->
+                    <button class="btn btn-success">
+                        Save The Report
+                        <i *ngIf="" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      
   </div>
 </div>
 
