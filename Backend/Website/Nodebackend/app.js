@@ -66,7 +66,11 @@ AWSClient.connect().then(() => {
   console.log(error);
 } );
 
-AWS.config.update({region: 'us-east-1'});
+AWS.config.update({
+  accessKeyId: 'AKIA3ZRSYJMXJIEEX77N',
+  secretAccessKey: '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',
+  region: 'us-east-1'
+});
 
 // Configure AWS S3
 S3 = module.exports = new AWS.S3();

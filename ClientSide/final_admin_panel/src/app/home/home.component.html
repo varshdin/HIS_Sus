@@ -93,9 +93,9 @@
                         <i *ngIf="" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
                     </button>
                     <!-- Third Button -->
-                    <button class="btn btn-success">
+                    <button class="btn btn-success" (click)="saveReports()">
                         Save The Report
-                        <i *ngIf="" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                        <i *ngIf="isSavingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
                     </button>
                 </div>
             </div>

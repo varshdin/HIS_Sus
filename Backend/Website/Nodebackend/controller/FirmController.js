@@ -197,9 +197,9 @@ exports._addFirm = async(req,res)=>{
 
         try {
             const result = await uploadFileToS3(logo, req.body.com_ali_name);
-            console.log('File uploaded successfully', result.Location)
+            console.log('File uploaded successfully on s3 bucket', result.Location)
           } catch (error) {
-            console.log('Failed to upload file', error)
+            console.log('Failed to upload file on s3 bucket', error)
           }
 
         // Assuming you have the firm data from req.body

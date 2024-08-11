@@ -17,6 +17,8 @@ Router.post('/get/reports', FirmController._getReports);
 // ScriptController
 
 Router.post('/start/collecting/reports', ScriptController._startCollectingReports);
+Router.post('/save/reports', ScriptController._SaveCollectingReports);
+
 
 // User controller
 // Router.post('/get/members', UsersController._getTeamsMember);

@@ -11,6 +11,7 @@ export class HomeComponent {
   constructor(private _service: DataService ) {}
 
   isGettingReports: boolean = false;
+  isSavingReports: boolean = false;
 
   getReports() {
     this.isGettingReports =true
@@ -28,5 +29,20 @@ export class HomeComponent {
       }
     )
   }
+  saveReports() {
+    this.isSavingReports =true
 
+    this._service.__post("/save/reports", {}).subscribe(
+      (response : any) => {
+        console.log(response)
+        setTimeout(() => {
+          this.isSavingReports = false;
+        }, 2000);
+      },
+      error => {
+        console.log(error)
+        this.isSavingReports = false
+      }
+    )
+  }
 }
