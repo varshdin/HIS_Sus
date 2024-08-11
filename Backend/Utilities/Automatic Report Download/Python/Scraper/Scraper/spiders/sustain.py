@@ -6,10 +6,16 @@ import os
 import boto3
 
 ## SETUP AWS CLIENT ##
+# client = boto3.client('s3',
+#                       region_name='eu-central-1',
+#                       aws_access_key_id='AKIA3ZRSYJMXJIEEX77N',
+#                       aws_secret_access_key='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'
+#                       )
+
 client = boto3.client('s3',
-                      region_name='eu-central-1',
-                      aws_access_key_id='AKIA3ZRSYJMXJIEEX77N',
-                      aws_secret_access_key='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'
+                      region_name='',
+                      aws_access_key_id='',
+                      aws_secret_access_key=''
                       )
 
 
