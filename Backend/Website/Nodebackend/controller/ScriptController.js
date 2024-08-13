@@ -1,37 +1,76 @@
 
 // Automatically download reports
+// Define the path to your script and the virtual environment
+const { exec } = require('child_process');
 
-// Function to create an S3 client and list objects in a specified bucket and prefix
-const listS3Objects = async (bucketName = 'internal.sustainabilitymonitor.org', prefix= 's3://internal.sustainabilitymonitor.org/staging/') => {
-    // Initialize the S3 client
-    console.log('----------------------------')
-    const params = {
-      Bucket: bucketName,
-      Prefix: prefix
-    };
-  
-    try {
-      const data = await S3.listObjectsV2(params).promise();
-      console.log(data)
-      return data.Contents.map(object => object.Key);
-    } catch (error) {
-      console.error("Error fetching objects from S3:", error);
-      throw error;
-    }
-  }
+// Define the path to your script and the virtual environment
+const projectPath = path.resolve(__dirname, '../scripts/automatic_report_download/Scraper');
+const venvPath = path.join(projectPath, 'venv');
+const pythonCmd = path.join(venvPath, 'bin', 'python');  // Path to the Python interpreter in the venv
+const reqFilePath = path.resolve(__dirname, '../scripts/automatic_report_download');
+const requirementsFilePath = path.join(reqFilePath, 'requirements.txt');
+const spiderPath = path.join(projectPath, 'Scraper', 'spiders');  // Path to the spiders directory
 
 exports._startCollectingReports = async (req, res) => {
     try {
-        console.log('call before')
+        // Check if the virtual environment directory exists
+        if (!fs.existsSync(venvPath)) {
+          // Create the virtual environment if it doesn't exist
+          console.log('Virtual environment not found, creating one...');
+          exec(`python3 -m venv ${venvPath}`, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Error creating virtual environment: ${error}`);
+              res.status(500).send(`Error creating virtual environment: ${error.message}`);
+              return;
+            }
+            console.log('Virtual environment created successfully.');
 
-        const result = await listS3Objects()
-
-        console.log('call after', result)
-        __.res(res, 'Successfully reports downloaded', 200)
-
+            // After creating the virtual environment, install the requirements once
+            installRequirements(res, () => {
+              runSpider(res);
+            });
+          });
+        } else {
+          // If the virtual environment exists, skip installing requirements and directly run the Scrapy spider
+          runSpider(res);
+        }
     } catch (error) {
         __.res(res, error.message, 500)
     }
+}
+function installRequirements(res, callback) {
+  // Install dependencies from requirements.txt
+  console.log('Installing dependencies...');
+  exec(`${pythonCmd} -m pip install -r ${requirementsFilePath}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error installing dependencies: ${error}`);
+      res.status(500).send(`Error installing dependencies: ${error.message}`);
+      return;
+    }
+    console.log('Dependencies installed successfully.');
+    callback();
+  });
+}
+
+function runSpider(res) {
+  // Run the Scrapy spider
+  console.log('Running the Scrapy spider...');
+  exec(`cd ${spiderPath} && ${pythonCmd} -m scrapy crawl sustain`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing Scrapy spider: ${error}`);
+      __.res(res, `Error executing Scrapy spider: ${error.message}`, 500)
+      return;
+    }
+
+    if (stderr) {
+      console.log(`Scrapy stdout: ${stdout}`);
+      // console.error(`Scrapy stderr: ${stderr}`);
+      __.res(res, `Scrapy stderr: ${stderr}`, 500)
+      return;
+    }
+
+    __.res(res, `Scrapy spider executed successfully: ${stdout}`, 200)
+  });
 }
 
 
