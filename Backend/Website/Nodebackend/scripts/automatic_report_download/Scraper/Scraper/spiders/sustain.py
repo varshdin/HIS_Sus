@@ -8,18 +8,33 @@ from botocore.exceptions import ClientError
 
 
 ## SETUP AWS CLIENT ##
-client = boto3.client('s3',
-                      region_name='us-east-1',
-                      aws_access_key_id='AKIA3ZRSYJMXJIEEX77N',
-                      aws_secret_access_key='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'
-                      )
+client = boto3.client(
+    's3',
+    # Default region if not set
+    region_name=os.getenv('AWS_DEFAULT_REGION', 'us-east-1'),
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+)
 
 
-class Companies():
-    # set directory to companies_list.xlsx file"
-    company_list = pd.read_excel("/home/sbarvaliya/Documents/HIS_Sus/Backend/Website/Nodebackend/scripts/automatic_report_download/companies_list.xlsx",
-                                 sheet_name="AllCompanies",
-                                 engine="openpyxl")
+def check_s3_bucket_connection(bucket_name):
+    try:
+        client.head_bucket(Bucket=bucket_name)
+        print(f"Successfully connected to the S3 bucket: {bucket_name}")
+        return True
+    except ClientError as e:
+        print(f"Failed to connect to the S3 bucket: {bucket_name}")
+        print(f"Error: {e}")
+        return False
+
+
+class Companies:
+    # set directory to companies_list.xlsx file
+    company_list = pd.read_excel(
+        os.getenv('COMPANY_LISTS_FILE_PATH'),
+        sheet_name="AllCompanies",
+        engine="openpyxl"
+    )
     report_urls = company_list['Page containing report'].tolist()
     company_name = company_list['Company Name'].tolist()
     root_path = "./File_filtered/"
@@ -37,6 +52,16 @@ class SustainSpider(scrapy.Spider):
     companies = Companies()
     company_name = companies.make_company_folder()
     start_urls = companies.report_urls
+    bucket_name = 'internal.sustainabilitymonitor.org'  # Set your S3 bucket name
+
+    def start_requests(self):
+        # Check if the S3 bucket is connected before making requests
+        if check_s3_bucket_connection(self.bucket_name):
+            for url in self.start_urls:
+                yield scrapy.Request(url, self.parse)
+        else:
+            self.logger.error(
+                f"Cannot proceed as the S3 bucket '{self.bucket_name}' is not accessible.")
 
     ## PARSING FUNCTION OF SCRAPY ##
     def parse(self, response):
@@ -47,69 +72,70 @@ class SustainSpider(scrapy.Spider):
             # get all elements containing pdf download link
             links = response.xpath(
                 '//a[contains(@href, "pdf")]/@href').getall()
-            if links == []:
+            if not links:
                 # get all URLs if pdf download link not found
                 links = response.css('a::attr(href)').extract()
                 for pdfurl in links:
                     pdfurl = response.urljoin(pdfurl)
-                    yield scrapy.Request(pdfurl, callback=self.download_pdf_to_s32, meta={'url': url, 'path': pdfurl,
-                                                                                          'Company': current_company})  # download files
+                    yield scrapy.Request(
+                        pdfurl,
+                        callback=self.download_pdf_to_s32,
+                        meta={'url': url, 'path': pdfurl,
+                              'Company': current_company}
+                    )  # download files
             else:
                 for pdfurl in links:
                     pdfurl = response.urljoin(pdfurl)
-                    yield scrapy.Request(pdfurl, callback=self.download_pdf_to_s3, meta={'url': url, 'path': pdfurl,
-                                                                                         'Company': current_company})  # download files
-
-    ## DOWNLOAD PDF TO LOCAL MACHINE FUNCTION ##
-    # def download_pdf(self, response):
-    #     current_company = response.meta.get('Company')
-    #     savepath = "./File_filtered/" + current_company             #file save location
-    #     path = response.url.split('/')[-1]                          #file name
-    #     if filter.name_filter(path, current_company) == True:               #find key words in filename
-    #         self.logger.info('Saving PDF %s', path)
-    #         completeName = os.path.join(savepath, path)
-    #         with open(completeName, 'wb') as f:
-    #             f.write(response.body)                              #write pdf file into folder
-    #     else: return
+                    yield scrapy.Request(
+                        pdfurl,
+                        callback=self.download_pdf_to_s3,
+                        meta={'url': url, 'path': pdfurl,
+                              'Company': current_company}
+                    )  # download files
 
     ## DOWNLOAD TO S3 BUCKET FUNCTION ##
     def download_pdf_to_s3(self, response):
         filename = response.url.split('/')[-1]  # get filename from URL
         current_company = response.meta.get('Company')
-        bucket = 'files.sustainabilitymonitor.org'
-        key = 'sustainability-reports/g4/' + current_company + '/' + filename
-        # result = client.list_objects_v2(Bucket=bucket, Prefix=key)
-        # if 'Contents' in result:
-        #     print("Key exists in the bucket.")
-        # else:
-        #     print("Key doesn't exist in the bucket.")
-        if filter.name_filter(filename) == True:
-            try:
-                client.put_object(Body=response.body,
-                                  Bucket=bucket,
-                                  Key=key,
-                                  ContentType='application/pdf')
-            except ClientError as e:
-                print(e)
+        key = f'staging/{current_company}/{filename}'
 
-    ## DOWNLOAD TO S3 BUCKET, FOR DOWNLOAD LINKS LACK FILENAME ##
+        if filter.name_filter(filename):
+            try:
+                client.put_object(
+                    Body=response.body,
+                    Bucket=self.bucket_name,
+                    Key=key,
+                    ContentType='application/pdf'
+                )
+                self.logger.info(
+                    f'Successfully uploaded {filename} to {self.bucket_name}/{key}')
+            except ClientError as e:
+                self.logger.error(f'Failed to upload {filename} to S3: {e}')
+
+    ## DOWNLOAD TO S3 BUCKET, FOR DOWNLOAD LINKS LACKING FILENAME ##
     def download_pdf_to_s32(self, response):
-        # if URL does not contain filename
-        type = response.headers.getlist('Content-Type')
-        type = type[0].decode('utf-8')
-        print(type)
-        if type == "application/pdf":
-            # get filename from response header
-            header = response.headers.getlist('Content-Disposition')
-            filename = header[0].decode('utf-8').split('"')[1]
-            current_company = response.meta.get('Company')
-            bucket = 'files.sustainabilitymonitor.org'  # set bucket
-            key = 'sustainability-reports/g4/' + current_company + '/' + filename  # set key
-            if filter.name_filter(filename) == True:
-                try:
-                    client.put_object(Body=response.body,
-                                      Bucket=bucket,
-                                      Key=key,
-                                      ContentType='application/pdf')
-                except ClientError as e:
-                    print(e)
+        content_type = response.headers.get('Content-Type').decode('utf-8')
+        if content_type == "application/pdf":
+            header = response.headers.get('Content-Disposition')
+            if header:
+                filename = header.decode(
+                    'utf-8').split('filename=')[-1].strip('"')
+                current_company = response.meta.get('Company')
+                key = f'staging/{current_company}/{filename}'
+
+                if filter.name_filter(filename):
+                    try:
+                        client.put_object(
+                            Body=response.body,
+                            Bucket=self.bucket_name,
+                            Key=key,
+                            ContentType='application/pdf'
+                        )
+                        self.logger.info(
+                            f'Successfully uploaded {filename} to {self.bucket_name}/{key}')
+                    except ClientError as e:
+                        self.logger.error(
+                            f'Failed to upload {filename} to S3: {e}')
+            else:
+                self.logger.warning(
+                    f'No Content-Disposition header found for {response.url}')

@@ -1,0 +1,4 @@
+export AWS_ACCESS_KEY_ID='AKIA3ZRSYJMXJIEEX77N'
+export AWS_SECRET_ACCESS_KEY='V+9/00rn5ejpi/Hbp4mgjgDwmkTy/wbQ13u0JUf3'
+export AWS_DEFAULT_REGION='us-east-1'  # or your desired region
+export COMPANY_LISTS_FILE_PATH='/home/sbarvaliya/Documents/HIS_Sus/Backend/Website/Nodebackend/scripts/automatic_report_download/companies_list.xlsx'
