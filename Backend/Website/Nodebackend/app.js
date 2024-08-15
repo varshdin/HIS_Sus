@@ -67,8 +67,8 @@ AWSClient.connect().then(() => {
 } );
 
 AWS.config.update({
-  accessKeyId: 'AKIA3ZRSYJMXJIEEX77N',
-  secretAccessKey: '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',
+  accessKeyId: '',
+  secretAccessKey: '',
   region: 'us-east-1'
 });
 

@@ -88,13 +88,13 @@
                         <i *ngIf="isGettingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
                     </button>
                     <!-- Second Button -->
-                    <button class="btn btn-yellow">
-                        Download Reports
-                        <i *ngIf="" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    <button class="btn btn-yellow" (click)="updateDownloadTable()">
+                        Update Download Table
+                        <i *ngIf="isUpadteDownload" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
                     </button>
                     <!-- Third Button -->
                     <button class="btn btn-success" (click)="saveReports()">
-                        Save The Report
+                        Update Report Table
                         <i *ngIf="isSavingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
                     </button>
                 </div>

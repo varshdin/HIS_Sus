@@ -73,7 +73,8 @@ function runSpider(res) {
   });
 }
 
-
+//---------------------------------------------------------------------------------
+//Upadte Report Table
 async function listFilesFromS3(bucket, prefix) {
   const params = {
     Bucket: bucket,
@@ -90,14 +91,18 @@ async function listFilesFromS3(bucket, prefix) {
 }
 
 exports._parseFileInfo = async (filePath) => {
-  const regex = /sustainability-reports\/Firm_ID\/(\d+)\/(.+?)_(.+?)_(.+?)_(\d{4})\.(.+)/;
+  //const regex = /sustainability-reports\/Firm_ID\/(\d+)\/(.+?)_(.+?)_(.+?)_(\d{4})\.(.+)/;
+ const regex = /sustainability-reports\/Firm_ID\/(\d+)\/(.+?)_(ESG|IR)_(.+?)_(\d{4})\.(.+)/;
+
+
   const match = filePath.match(regex);
+  //console.log(match);
   if (match) {
     return {
       company_id: match[1],
       company_alias: match[2],
-      report_filename: match[0].split('/').pop(),
-      s3_url_production: filePath,
+      report_filename:match[0].split('/').pop(),
+      s3_url_production: 'https://s3.eu-central-1.amazonaws.com/files.sustainabilitymonitor.org/'+filePath,
       report_extension: match[6],
       report_type: match[3],
       report_language: match[4],
@@ -161,9 +166,10 @@ exports._SaveCollectingReports = async (req, res) => {
         console.log(`Stored report with ID: ${reportInfo}`);
         if (reportInfo) {
           const exists = await reportExists(reportInfo.report_filename);
+          console.log(exists)
           if (!exists) {
             console.log('-------file exists-------------', exists)
-            const reportId = await storeReportInfo(reportInfo);
+            const reportId = await this._storeReportInfo(reportInfo);
             console.log(`Stored report with ID: ${reportId}`);
           } else {
             console.log('-------file else-------------', exists)
@@ -173,6 +179,26 @@ exports._SaveCollectingReports = async (req, res) => {
         
       }
       __.res(res, 'Successfully reports save', 200)
+
+  } catch (error) {
+      __.res(res, error.message, 500)
+  }
+}
+//------------------------------------------------------------------------------------
+//Update Download Table
+
+exports._updateDownloadTable=async (req, res) => {
+  try {
+    const bucket = 'internal.sustainabilitymonitor.org';
+    const prefix = 'staging/';
+  
+      const files = await listFilesFromS3(bucket, prefix);
+  
+      for (const file of files) {
+        console.log(`Stored report with ID: ${file}`);
+      }
+
+      __.res(res, 'Successfully Update Table', 200)
 
   } catch (error) {
       __.res(res, error.message, 500)

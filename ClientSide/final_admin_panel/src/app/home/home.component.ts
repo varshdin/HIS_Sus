@@ -12,6 +12,7 @@ export class HomeComponent {
 
   isGettingReports: boolean = false;
   isSavingReports: boolean = false;
+  isUpadteDownload: boolean = false;
 
   getReports() {
     this.isGettingReports =true
@@ -19,9 +20,7 @@ export class HomeComponent {
     this._service.__post("/start/collecting/reports", {}).subscribe(
       (response : any) => {
         console.log(response)
-        setTimeout(() => {
-          this.isGettingReports = false;
-        }, 2000);
+        this.isGettingReports = false;
       },
       error => {
         console.log(error)
@@ -35,13 +34,25 @@ export class HomeComponent {
     this._service.__post("/save/reports", {}).subscribe(
       (response : any) => {
         console.log(response)
-        setTimeout(() => {
-          this.isSavingReports = false;
-        }, 2000);
+        this.isSavingReports = false;
       },
       error => {
         console.log(error)
         this.isSavingReports = false
+      }
+    )
+  }
+  updateDownloadTable(){
+    this.isUpadteDownload=true
+
+    this._service.__post("/Update/Download/Table", {}).subscribe(
+      (response : any) => {
+        console.log(response)
+        this.isUpadteDownload= false;
+      },
+      error => {
+        console.log(error)
+        this.isUpadteDownload= false
       }
     )
   }

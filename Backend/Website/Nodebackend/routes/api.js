@@ -18,6 +18,7 @@ Router.post('/get/reports', FirmController._getReports);
 
 Router.post('/start/collecting/reports', ScriptController._startCollectingReports);
 Router.post('/save/reports', ScriptController._SaveCollectingReports);
+Router.post('/Update/Download/Table',ScriptController._updateDownloadTable);
 
 
 // User controller
