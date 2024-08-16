@@ -8,7 +8,7 @@ fs = module.exports = require("fs");
 randomString = module.exports = require("randomstring");
 logger = module.exports = require("./common/logger");
 AWS = module.exports = require('aws-sdk');
-
+cheerio = module.exports = require('cheerio');
 _ = module.exports = require("underscore");
 request = module.exports = require('request');
 
@@ -69,7 +69,7 @@ AWSClient.connect().then(() => {
 AWS.config.update({
   accessKeyId: '',
   secretAccessKey: '',
-  region: 'us-east-1'
+  region: 'eu-central-1'
 });
 
 // Configure AWS S3

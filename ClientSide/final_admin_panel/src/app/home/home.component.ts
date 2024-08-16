@@ -17,7 +17,7 @@ export class HomeComponent {
   getReports() {
     this.isGettingReports =true
 
-    this._service.__post("/start/collecting/reports", {}).subscribe(
+    this._service.__post("/start/process/automatic/reports/downloading", {}).subscribe(
       (response : any) => {
         console.log(response)
         this.isGettingReports = false;
