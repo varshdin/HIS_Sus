@@ -114,14 +114,61 @@ exports._SaveCollectingReports = async (req, res) => {
 
 exports._updateDownloadTable=async (req, res) => {
   try {
-    const bucket = 'internal.sustainabilitymonitor.org';
+    const bucket = 'files.sustainabilitymonitor.org';
     const prefix = 'staging/';
   
-      const files = await listFilesFromS3(bucket, prefix);
-  
-      for (const file of files) {
-        console.log(`Stored report with ID: ${file}`);
+    const s3Urls = await listFilesFromS3(bucket, prefix);
+    for (let s3Url of s3Urls) {
+      // Remove "staging/" and split the path
+      const pathParts = s3Url.replace("staging/", "").split('/');
+    
+      if(pathParts == '') {
+        continue;
       }
+      
+      // Extract company alias (which is the first part of the path)
+      const companyAlias = pathParts[0];
+    
+      // Extract the filename and other details from the last part of the path
+      const filename = pathParts[pathParts.length - 1];
+      
+      // Extract the file extension
+      const fileExtension = filename.split('.').pop();
+      
+      // Extract the year from the filename (if available)
+      const yearMatch = filename.match(/_(\d{4})_/);
+      const year = yearMatch ? parseInt(yearMatch[1]) : null;
+    
+      // Check if the file already exists in the download table
+      const checkQuery = `
+        SELECT 1 FROM download WHERE download_filename = $1
+      `;
+      const checkValues = [filename];
+      
+      const res = await AWSClient.query(checkQuery, checkValues);
+      
+      if (res.rows.length > 0) {
+        console.log(`File already exists: ${filename}, skipping insert.`);
+        continue;
+      }
+    
+      // Prepare the SQL query for insertion
+      const insertQuery = `
+        INSERT INTO download (company_id, company_alias, download_filename, download_extension, download_year, download_url, s3_url_staging)
+        VALUES (
+          (SELECT company_id FROM companies WHERE company_name = $1),
+          $1, $2, $3, $4,
+          (SELECT sustainability_url FROM companies WHERE company_name = $1),
+          $5
+        )
+      `;
+    
+      const values = [companyAlias, filename, fileExtension, year, 'https://s3.eu-central-1.amazonaws.com/files.sustainabilitymonitor.org/'+s3Url];
+      // Execute the query to insert the data
+      await AWSClient.query(insertQuery, values);
+    }
+    
+    console.log("Data processing completed successfully!");
 
       __.res(res, 'Successfully Update Table', 200)
 
