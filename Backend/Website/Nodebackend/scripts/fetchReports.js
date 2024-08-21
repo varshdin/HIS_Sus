@@ -85,7 +85,7 @@ async function storeReportInfo(reportInfo) {
 }
 
 async function main() {
-  const bucket = 'files.sustainabilitymonitor.org';
+  const bucket = S3_BUCKET_NAME;
   const prefix = 'sustainability-reports/Firm_ID/';
 
   try {
@@ -112,9 +112,9 @@ main();
 
 // // Sample S3 URLs
 // const sampleUrls = [
-//   's3://files.sustainabilitymonitor.org/sustainability-reports/Firm_ID/1/AaasrealBank_IR_EN_2016.pdf',
-//   's3://files.sustainabilitymonitor.org/sustainability-reports/Firm_ID/1/AareasalBank_IR_EN_2017.pdf',
-//   's3://files.sustainabilitymonitor.org/sustainability-reports/Firm_ID/1/AarasdealBank_IR_EN_2018.pdf'
+//   's3://S3_BUCKET_NAME/sustainability-reports/Firm_ID/1/AaasrealBank_IR_EN_2016.pdf',
+//   's3://S3_BUCKET_NAME/sustainability-reports/Firm_ID/1/AareasalBank_IR_EN_2017.pdf',
+//   's3://S3_BUCKET_NAME/sustainability-reports/Firm_ID/1/AarasdealBank_IR_EN_2018.pdf'
 // ];
 
 // // Configure PostgreSQL client

@@ -61,7 +61,7 @@ async function makeCompanyFolders(companyNames) {
 //         }
         
 //         await S3.putObject({
-//             Bucket: 'files.sustainabilitymonitor.org',
+//             Bucket: S3_BUCKET_NAME,
 //             Key: key,
 //             Body: response.data,
 //             ContentType: 'application/pdf',
@@ -108,7 +108,7 @@ async function downloadPdfToS3(url, company) {
         if (nameFilter(originalFilename)) {
             // Uploading the PDF to S3 with the new formatted name
             await S3.putObject({
-                Bucket: 'files.sustainabilitymonitor.org',
+                Bucket: S3_BUCKET_NAME,
                 Key: key,
                 Body: response.data,
                 ContentType: 'application/pdf',
@@ -117,7 +117,7 @@ async function downloadPdfToS3(url, company) {
         } else {
             console.log(`No matching filter criteria: ${originalFilename}. Using original name for upload.`);
             await S3.putObject({
-                Bucket: 'files.sustainabilitymonitor.org',
+                Bucket: S3_BUCKET_NAME,
                 Key: `staging/${company}/${originalFilename}`,
                 Body: response.data,
                 ContentType: 'application/pdf',
@@ -180,7 +180,7 @@ function generateFormattedFilename(originalFilename, company) {
 async function checkIfFileExistsInS3(key) {
     try {
         await S3.headObject({
-            Bucket: 'files.sustainabilitymonitor.org',
+            Bucket: S3_BUCKET_NAME,
             Key: key,
         }).promise();
         return true;  // File exists

@@ -80,7 +80,7 @@ async function downloadPdfToS3(url, company) {
         if (nameFilter(formattedFilename)) {
             // Uploading the PDF to S3
             await s3.putObject({
-                Bucket: 'files.sustainabilitymonitor.org',
+                Bucket: S3_BUCKET_NAME,
                 Key: key,
                 Body: response.data,
                 ContentType: 'application/pdf',
@@ -143,7 +143,7 @@ function generateFormattedFilename(originalFilename, company) {
 async function checkIfFileExistsInS3(key) {
     try {
         await s3.headObject({
-            Bucket: 'files.sustainabilitymonitor.org',
+            Bucket: S3_BUCKET_NAME,
             Key: key,
         }).promise();
         return true;  // File exists

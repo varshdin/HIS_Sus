@@ -192,7 +192,6 @@ const uploadFileToS3 = (file, companyFileName) => {
 exports._addFirm = async(req,res)=>{
     try {
         const logo = req.file
-        console.log(req.file, req.body.com_ali_name)
         req.body = __._form(req.body)
 
         try {
@@ -210,7 +209,7 @@ exports._addFirm = async(req,res)=>{
             nace_lev1_desc: req.body.nace_Lev2_Id_Description,
             company_url: req.body.company_URL,
             sustainability_url: req.body.sustainability_URL,
-            logo_link: req.body.company_logo,
+            logo_link: req.body.com_ali_name+'.'+__.ext(logo.filename),
             company_description: req.body.description
         };
 

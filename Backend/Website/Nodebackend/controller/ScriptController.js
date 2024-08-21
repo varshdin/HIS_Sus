@@ -80,7 +80,7 @@ async function reportExists(report_filename) {
 
 exports._SaveCollectingReports = async (req, res) => {
   try {
-    const bucket = 'files.sustainabilitymonitor.org';
+    const bucket = S3_BUCKET_NAME;
     const prefix = 'sustainability-reports/Firm_ID/';
   
       const files = await listFilesFromS3(bucket, prefix);
@@ -114,7 +114,7 @@ exports._SaveCollectingReports = async (req, res) => {
 
 exports._updateDownloadTable=async (req, res) => {
   try {
-    const bucket = 'files.sustainabilitymonitor.org';
+    const bucket = S3_BUCKET_NAME;
     const prefix = 'staging/';
   
     const s3Urls = await listFilesFromS3(bucket, prefix);
