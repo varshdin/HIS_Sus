@@ -74,7 +74,8 @@ AWS.config.update({
 
 // Configure AWS S3
 S3 = module.exports = new AWS.S3();
-S3_BUCKET_NAME = module.exports = 'files.sustainabilitymonitor.org';
+S3_BUCKET_NAME = module.exports = 'internal.sustainabilitymonitor.org';
+S3_BUCKET_NAME_PREFIX_URL = module.exports = 'https://s3.eu-central-1.amazonaws.com/'
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());

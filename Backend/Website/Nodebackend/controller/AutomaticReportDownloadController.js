@@ -4,7 +4,7 @@ const path = require('path');
 
 // Fetch company URLs from the PostgreSQL database
 async function getCompanyUrls() {
-    const res = await AWSClient.query('SELECT company_name, sustainability_url FROM companies');
+    const res = await AWSClient.query('SELECT company_id, company_name, company_alias, sustainability_url FROM companies');
     return res.rows;
 }
 
@@ -20,58 +20,6 @@ async function makeCompanyFolders(companyNames) {
     return companyNames;
 }
 
-// Download PDF and upload to S3
-// async function downloadPdfToS3(url, company) {
-//     try {
-//         // Making a request to download the PDF
-//         const response = await axios.get(url, { responseType: 'arraybuffer' });
-                
-//         // Checking if the response is a PDF
-//         const contentType = response.headers['content-type'];
-//         if (contentType !== 'application/pdf') {
-//             console.log(`Skipped: ${url} is not a PDF file.`);
-//             return;
-//         }
-
-//         // Extracting the original filename from the URL
-//         let originalFilename = url.split('/').pop();
-//         if (!originalFilename) {
-//             console.log(`Skipped: No filename found in the URL: ${url}`);
-//             return;
-//         }
-
-//         // Generate a proper format name
-//         const formattedFilename = generateFormattedFilename(originalFilename, company);
-
-//         // Constructing the S3 key
-//         const key = `staging/${company}/${formattedFilename}`;
-
-//         // Check if the file already exists in S3
-//         const fileExists = await checkIfFileExistsInS3(key);
-//         if (fileExists) {
-//             console.log(`Skipped: ${formattedFilename} already exists in S3 for company ${company}`);
-//             return;
-//         }
-        
-//         // Filtering the file based on its name
-//         if (nameFilter(formattedFilename)) {
-//             // Uploading the PDF to S3
-//         } else {
-//             console.log(`Filtered out: ${formattedFilename} does not meet the filter criteria.`);
-//         }
-        
-//         await S3.putObject({
-//             Bucket: S3_BUCKET_NAME,
-//             Key: key,
-//             Body: response.data,
-//             ContentType: 'application/pdf',
-//         }).promise();
-//         console.log(`Uploaded: ${formattedFilename} to S3 for company ${company}`);
-//     } catch (error) {
-//         console.error(`Error downloading or uploading ${url} for company ${company}: ${error.message}`);
-//     }
-// }
-
 async function downloadPdfToS3(url, company) {
     try {
         // Extracting the original filename from the URL
@@ -82,15 +30,14 @@ async function downloadPdfToS3(url, company) {
         }
 
         // Generate a proper format name
-        const formattedFilename = generateFormattedFilename(originalFilename, company);
-
+        const formattedFileData = generateFormattedFilename(originalFilename, company.company_alias);
         // Constructing the S3 key
-        const key = `staging/${company}/${formattedFilename}`;
+        const key = `staging/${company.company_name}/${formattedFileData.originalFilename}`;
 
         // Check if the file already exists in S3
         const fileExists = await checkIfFileExistsInS3(key);
         if (fileExists) {
-            console.log(`Skipped: ${formattedFilename} already exists in S3 for company ${company}`);
+            console.log(`Skipped: ${formattedFileData.originalFilename} already exists in S3 for company ${company.company_alias}`);
             return;
         }
 
@@ -105,7 +52,7 @@ async function downloadPdfToS3(url, company) {
         }
 
         // Filtering the file based on its name
-        if (nameFilter(originalFilename)) {
+        if (nameFilter(formattedFileData.originalFilename)) {
             // Uploading the PDF to S3 with the new formatted name
             await S3.putObject({
                 Bucket: S3_BUCKET_NAME,
@@ -113,30 +60,58 @@ async function downloadPdfToS3(url, company) {
                 Body: response.data,
                 ContentType: 'application/pdf',
             }).promise();
-            console.log(`Uploaded: ${formattedFilename} to S3 for company ${company}`);
-        } else {
-            console.log(`No matching filter criteria: ${originalFilename}. Using original name for upload.`);
-            await S3.putObject({
-                Bucket: S3_BUCKET_NAME,
-                Key: `staging/${company}/${originalFilename}`,
-                Body: response.data,
-                ContentType: 'application/pdf',
-            }).promise();
-            console.log(`Uploaded with original name: ${originalFilename} to S3 for company ${company}`);
+            console.log(`Uploaded: ${formattedFileData.originalFilename} to S3 for company ${company.company_alias}`);
+            
+            const downloadedDataStore = {
+                company_id: company.company_id,
+                company_alias: company.company_alias,
+                download_filename: formattedFileData.originalFilename,
+                download_extension: formattedFileData.originalFilename.split('.').pop(),
+                download_year: formattedFileData.year,
+                download_url: url,
+                s3_url_staging:  `${S3_BUCKET_NAME_PREFIX_URL}${S3_BUCKET_NAME}/${key}`
+            }
+            await insertCompanyData(downloadedDataStore)
+            console.log(`Company successfully stored in download table`);
         }
     } catch (error) {
-        console.error(`Error downloading or uploading ${url} for company ${company}: ${error.message}`);
+        console.error(`Error downloading or uploading ${url} for company ${company.company_alias}: ${error}`);
+    }
+}
+
+
+async function insertCompanyData(companyData) {
+    try {
+        const queryText = `
+            INSERT INTO download (company_id, company_alias, download_filename, download_extension, download_year, download_url, s3_url_staging)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING *;
+        `;
+
+        const values = [
+            companyData.company_id,
+            companyData.company_alias,
+            companyData.download_filename,
+            companyData.download_extension,
+            (companyData.download_year)? companyData.download_year: null,
+            companyData.download_url,
+            companyData.s3_url_staging
+        ];
+        // console.log(values);
+        const res = await AWSClient.query(queryText, values);
+        // console.log('Data inserted successfully', res.rows[0]);
+        console.log('Data inserted successfully in download table');
+
+    } catch (err) {
+        console.error('Error executing query in download table', err.stack);
     }
 }
 
 
 // Function to generate a proper formatted filename
-// Function to generate a proper formatted filename
 function generateFormattedFilename(originalFilename, company) {
     // Define default values
     let year = '';
-    let documentType = 'Report';
-    let language = '';
 
     // Improved year extraction from the filename
     const yearMatch = originalFilename.match(/(?:19|20)\d{2}/);
@@ -144,35 +119,12 @@ function generateFormattedFilename(originalFilename, company) {
         year = yearMatch[0];
     }
 
-    // Determine document type based on keywords
-    if (/sustainability/i.test(originalFilename)) {
-        documentType = 'SustainabilityReport';
-    } else if (/climate/i.test(originalFilename)) {
-        documentType = 'ClimateReport';
-    } else if (/emission/i.test(originalFilename)) {
-        documentType = 'EmissionReport';
-    } else if (/modern[_-]?slavery/i.test(originalFilename)) {
-        documentType = 'ModernSlaveryStatement';
-    } else if (/code[_-]?of[_-]?conduct/i.test(originalFilename)) {
-        documentType = 'CodeOfConduct';
-    } else if (/green[_-]?finance/i.test(originalFilename)) {
-        documentType = 'GreenFinanceFramework';
-    } else if (/nichtfinanzieller/i.test(originalFilename)) {
-        documentType = 'NonFinancialReport';
+    const response = {
+        originalFilename: originalFilename,
+        year: year
     }
 
-    // Determine language based on common language codes or indicators
-    if (/en/i.test(originalFilename)) {
-        language = 'EN';
-    } else if (/de/i.test(originalFilename)) {
-        language = 'DE';
-    }
-
-    // Generate the formatted filename
-    const formattedFilename = `${company}_${year}_${documentType}${language ? '_' + language : ''}.pdf`;
-
-    // If no year was found, consider adding a fallback year based on some default, if required
-    return formattedFilename;
+    return response;
 }
 
 
@@ -234,7 +186,7 @@ exports._startAutomaticReportDownloading = async (req, res) => {
                 for (let link of links) {
                     link = new URL(link, company.sustainability_url).href;  // Resolve relative URLs
                     // console.log(`Scraping ${link}`);
-                    await downloadPdfToS3(link, company.company_name);
+                    await downloadPdfToS3(link, company);
                 }
             } catch (error) {
                 console.error(`Error scraping ${company.company_name}: ${error.message}`);
