@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 
 @Component({
@@ -6,13 +6,54 @@ import { DataService } from '../data.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  sectors: any[] = [];
+  firms: Array<any> = [];
 
   constructor(private _service: DataService ) {}
 
   isGettingReports: boolean = false;
   isSavingReports: boolean = false;
   isUpadteDownload: boolean = false;
+
+  ngOnInit(): void {
+    this.loadSector();
+    this.getCompanies();
+  }
+
+  async loadSector(condition = {}, options = {}){
+    if (this.sectors.length !== 0) {
+      options = {
+        skip: this.sectors.length
+      }
+    }
+
+    this._service.__post("/get/sectors", { condition: condition, options: options}).subscribe(
+      (response : any) => {
+        for (let index = 0; index < response.length; index++) {
+          const firm = response[index];
+          this.sectors.push(firm);
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  async getCompanies(condition = {}, options = {}){
+    this._service.__post("/get/firms", { condition: condition, options: options}).subscribe(
+      (response : any) => {
+        for (let index = 0; index < response.length; index++) {
+          const firm = response[index];
+          this.firms.push(firm);
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 
   getReports() {
     this.isGettingReports =true

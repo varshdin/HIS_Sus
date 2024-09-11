@@ -29,7 +29,7 @@ export class DataService {
   constructor(private _http: HttpClient) {}
 
 
-  apiUrl: string = (window.location.hostname == 'localhost' ? 'http://localhost:8080/api/v1' : 'http://ec2-18-184-23-208.eu-central-1.compute.amazonaws.com:8080/api/v1');
+  apiUrl: string = (window.location.hostname == 'localhost' ? 'http://3.67.12.158/api/v1' : 'http://3.67.12.158/api/v1');
 
   _response(response: any) {
 

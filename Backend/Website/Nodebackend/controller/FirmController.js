@@ -177,7 +177,7 @@ function getAWSCompanyById(id) {
 
 // Upload file to S3
 const uploadFileToS3 = (file, companyFileName) => {
-    const filePath = 'public/images/companies/uploaded-logo/'+ file.filename;
+    const filePath = __dirname+'public/images/companies/uploaded-logo/'+ file.filename;
     const fileContent = fs.readFileSync(filePath);
 
     const params = {
