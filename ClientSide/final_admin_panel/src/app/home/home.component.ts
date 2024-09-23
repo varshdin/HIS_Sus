@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   isGettingReports: boolean = false;
   isSavingReports: boolean = false;
   isUpadteDownload: boolean = false;
+  successMessageForRepDown: boolean = false;
+  saveReportsSuccess: boolean = false;
 
   ngOnInit(): void {
     this.loadSector();
@@ -62,6 +64,7 @@ export class HomeComponent implements OnInit {
       (response : any) => {
         console.log(response)
         this.isGettingReports = false;
+        this.successMessageForRepDown = true;
       },
       error => {
         console.log(error)
@@ -76,6 +79,7 @@ export class HomeComponent implements OnInit {
       (response : any) => {
         console.log(response)
         this.isSavingReports = false;
+        this.saveReportsSuccess = true;
       },
       error => {
         console.log(error)

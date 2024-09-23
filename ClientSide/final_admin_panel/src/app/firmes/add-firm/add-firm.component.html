@@ -70,13 +70,13 @@
         <div class="form-group col-sm-6 flex-column d-flex">
             <label class="heading" >Company URL<span class="text-danger"> *</span></label>
             <label class="Instruction"> Please provide the URL for the company's website in "https://www." format.</label>
-            <input type="url" id="curl" name="company_URL" #com_url="ngModel" placeholder="http://ABC/EFG.com" class="form-control" required ngModel>
+            <input type="url" id="curl" name="company_URL" #com_url="ngModel" placeholder="http://ABC/EFG.com" pattern="(https://.*|www\..*)" class="form-control" required ngModel>
             <label
             for="recipient-name"
             class="col-form-label text-error text-danger"
             *ngIf="com_url.touched && com_url.invalid"
           >
-            *Please select com_url name</label
+            *Please enter valid url</label
           >
         </div>
 
@@ -115,13 +115,14 @@
             required
             #Sustainability_Url="ngModel"
             ngModel
+            pattern="(https://.*|www\..*)" 
           />
           <label class="heading"
             for="recipient-name"
             class="col-form-label text-error text-danger"
             *ngIf="Sustainability_Url.touched && Sustainability_Url.invalid"
           >
-            *Please enter Sustainability_Url</label
+            *Please enter valid Sustainability_Url</label
           >
         </div>
       </div>
@@ -164,7 +165,12 @@
           #description="ngModel"
           ngModel
           style="min-height: 150px"
+          [(ngModel)]="description_valid"
+          (ngModelChange)="validateWordCount()"
         ></textarea>
+        <div *ngIf="isInvalid" class="error-message text-error text-danger">
+          Please enter at least 30 words.
+        </div>
         <label
           for="recipient-name"
           class="col-form-label text-error text-danger"
@@ -191,7 +197,7 @@
         type="submit"
         value="submit"
         class="btn btn-primary primary-btn fr"
-        [disabled]="addFirm.invalid || !fileValid"
+        [disabled]="addFirm.invalid || !fileValid && isInvalid"
         style="float: right; margin-top: 20px; margin-right: 10px"
         >
         Submit<i class="fa fa-spinner fa-spin" *ngIf="isLoad"></i>

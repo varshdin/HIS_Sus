@@ -16,7 +16,8 @@ export class AddFirmComponent {
   fileError: string = '';
   selectedFile: File | null = null;
   selectedSectorDescription: string = '';
-
+  description_valid !: string;
+  isInvalid: boolean = false;
   constructor(private _service: DataService) { }
 
   ngOnInit(): void {
@@ -63,6 +64,8 @@ export class AddFirmComponent {
   }
 
   _addFirm(form: any): any {
+    // if (!this.isInvalid)
+    //   return
     this.isLoad = true;
     this.errorMessage = '';
     if (!form.valid || !this.fileValid || !this.selectedFile) {
@@ -107,5 +110,10 @@ export class AddFirmComponent {
     } else {
       this.selectedSectorDescription = '';
     }
+  }
+
+  validateWordCount() {
+    const wordCount = this.description_valid.trim().split(/\s+/).length;
+    this.isInvalid = wordCount < 30;
   }
 }

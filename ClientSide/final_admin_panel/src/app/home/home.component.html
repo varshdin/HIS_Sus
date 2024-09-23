@@ -80,6 +80,12 @@
       <div class="col-lg-8 col-xl-8">
         <div class="main-card mb-3 card">
             <div class="card-body">
+              <div class="alert alert-success" role="alert" *ngIf="successMessageForRepDown">
+                {{ 'The reports have been successfully downloaded and stored in the download table.' }}
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="saveReportsSuccess">
+                  {{ 'Reports have been successfully saved.' }}
+                  </div>
                 <h5 class="card-title">Scripts</h5>
                 <div class="d-flex justify-content-between w-100">
                     <!-- First Button -->

@@ -29,7 +29,7 @@ export class DataService {
   constructor(private _http: HttpClient) {}
 
 
-  apiUrl: string = (window.location.hostname == 'localhost' ? 'http://3.67.12.158/api/v1' : 'http://3.67.12.158/api/v1');
+  apiUrl: string = (window.location.hostname == 'localhost' ? 'https://admin.sustainabilitymonitor.org/api/v1' : 'https://admin.sustainabilitymonitor.org/api/v1');
 
   _response(response: any) {
 
