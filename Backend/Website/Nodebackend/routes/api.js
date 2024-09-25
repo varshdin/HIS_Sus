@@ -3,7 +3,9 @@ const Router = express.Router()
 
 // AdminLogin
 Router.post('/contactUs/user', UsersController._contactUsUser);
-
+Router.get('/test', (req, res) => {
+res.send('hello word');
+})
 //Firms
 Router.post('/get/firms', FirmController._getFirms);
 Router.post('/get/firms', FirmController._getFirms);
@@ -16,7 +18,12 @@ Router.post('/get/reports', FirmController._getReports);
 
 // ScriptController
 
-Router.post('/start/collecting/reports', ScriptController._startCollectingReports);
+Router.post('/save/reports', ScriptController._SaveCollectingReports);
+Router.post('/Update/Download/Table',ScriptController._updateDownloadTable);
+
+// AutomaticReportDownloadController
+Router.post('/start/process/automatic/reports/downloading', AutomaticReportDownloadController._startAutomaticReportDownloading);
+
 
 // User controller
 // Router.post('/get/members', UsersController._getTeamsMember);

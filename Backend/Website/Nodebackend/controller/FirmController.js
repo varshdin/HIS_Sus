@@ -177,7 +177,7 @@ function getAWSCompanyById(id) {
 
 // Upload file to S3
 const uploadFileToS3 = (file, companyFileName) => {
-    const filePath = 'public/images/companies/uploaded-logo/'+ file.filename;
+    const filePath = __dirname+'public/images/companies/uploaded-logo/'+ file.filename;
     const fileContent = fs.readFileSync(filePath);
 
     const params = {
@@ -192,14 +192,13 @@ const uploadFileToS3 = (file, companyFileName) => {
 exports._addFirm = async(req,res)=>{
     try {
         const logo = req.file
-        console.log(req.file, req.body.com_ali_name)
         req.body = __._form(req.body)
 
         try {
             const result = await uploadFileToS3(logo, req.body.com_ali_name);
-            console.log('File uploaded successfully', result.Location)
+            console.log('File uploaded successfully on s3 bucket', result.Location)
           } catch (error) {
-            console.log('Failed to upload file', error)
+            console.log('Failed to upload file on s3 bucket', error)
           }
 
         // Assuming you have the firm data from req.body
@@ -210,7 +209,7 @@ exports._addFirm = async(req,res)=>{
             nace_lev1_desc: req.body.nace_Lev2_Id_Description,
             company_url: req.body.company_URL,
             sustainability_url: req.body.sustainability_URL,
-            logo_link: req.body.company_logo,
+            logo_link: req.body.com_ali_name+'.'+__.ext(logo.filename),
             company_description: req.body.description
         };
 

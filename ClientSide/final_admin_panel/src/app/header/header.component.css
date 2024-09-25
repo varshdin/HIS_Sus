@@ -1,0 +1,5 @@
+.custom-logo {
+    width: 150px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px; /* Add space between logo and the rest of the header */
+  }

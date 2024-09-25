@@ -10,7 +10,8 @@
     <form #addFirm="ngForm" (ngSubmit)="_addFirm(addFirm)">
       <div class="row">
         <div class="form-group col-md-6 col-6">
-          <label for="firstname">Company Name*</label>
+          <label class="heading" for="firstname">Company Name*</label>
+          <label class="Instruction">Please enter the official full company name, including is legal form (e.g., AG, SE, Inc.).</label>
           <input
             type="text"
             class="form-control"
@@ -31,7 +32,8 @@
         </div>
 
         <div class="form-group col-md-6 col-6">
-          <label for="com_ali_name">Company Alias(Short Name)*</label>
+          <label class="heading" for="com_ali_name">Company Alias(Short Name)*</label>
+          <label class="Instruction">Please include the short company name (e.g., Siemens AG is Siemens).</label>
           <input
             type="text"
             class="form-control"
@@ -51,10 +53,11 @@
           >
         </div>
         <div class="form-group col-sm-6 col-md-6 flex-column d-flex">
-            <label class="form-control-label">Nace_Lev2_Id<span class="text-danger"> *</span></label>
+            <label class="heading" >Nace_Lev2_Id<span class="text-danger"> *</span></label>
+            <label class="Instruction"> Please Select Nack_Lev2_Id Here</label>
             <select id="Nace_Lev2_id" name="nace_Lev2_id" ngModel #nace_Lev2_id="ngModel" class="form-control"  (change)="onSectorChange(nace_Lev2_id.value)" required>
                 <option value="">Please Select</option>
-                <option *ngFor="let sector of sectors" [value]="sector.nace_lev2_id">{{ sector.nace_lev2_id }}</option>
+                <option *ngFor="let sector of sectors" [value]="sector.nace_lev2_id">{{ sector.nace_lev2_id }}  -  {{sector.nace_lev2_desc}}</option>
             </select>
             <label
             for="recipient-name"
@@ -65,19 +68,20 @@
           >
         </div>
         <div class="form-group col-sm-6 flex-column d-flex">
-            <label class="form-control-label">Company URL<span class="text-danger"> *</span></label>
-            <input type="url" id="curl" name="company_URL" #com_url="ngModel" placeholder="http://ABC/EFG.com" class="form-control" required ngModel>
+            <label class="heading" >Company URL<span class="text-danger"> *</span></label>
+            <label class="Instruction"> Please provide the URL for the company's website in "https://www." format.</label>
+            <input type="url" id="curl" name="company_URL" #com_url="ngModel" placeholder="http://ABC/EFG.com" pattern="(https://.*|www\..*)" class="form-control" required ngModel>
             <label
             for="recipient-name"
             class="col-form-label text-error text-danger"
             *ngIf="com_url.touched && com_url.invalid"
           >
-            *Please select com_url name</label
+            *Please enter valid url</label
           >
         </div>
 
         <div class="form-group col-md-12 col-12">
-            <label for="Nace_Lev2_Id_Description">Nace_Lev2_Id_Description*</label>
+            <label class="heading" for="Nace_Lev2_Id_Description">Nace_Lev2_Id_Description*</label>
             <textarea
                 type="text"
                 rows="4"
@@ -90,7 +94,7 @@
                 [(ngModel)]="selectedSectorDescription"
                 style="min-height: 150px"
             ></textarea>
-            <label
+            <label class="heading"
               for="recipient-name"
               class="col-form-label text-error text-danger"
               *ngIf="Nace_Lev2_Id_Description.touched && Nace_Lev2_Id_Description.invalid"
@@ -100,7 +104,8 @@
           </div>
 
         <div class="form-group col-md-12 col-12">
-          <label for="Sustainability_Url">Sustainability_Url*</label>
+          <label class="heading"  for="Sustainability_Url">Sustainability_Url*</label><br>
+          <label class="Instruction">Please provide the direct URL to the page containing the company's sustainability reports on is website in the format "https://www....".</label>
           <input
             type="Sustainability_Url"
             class="form-control"
@@ -110,19 +115,21 @@
             required
             #Sustainability_Url="ngModel"
             ngModel
+            pattern="(https://.*|www\..*)" 
           />
-          <label
+          <label class="heading"
             for="recipient-name"
             class="col-form-label text-error text-danger"
             *ngIf="Sustainability_Url.touched && Sustainability_Url.invalid"
           >
-            *Please enter Sustainability_Url</label
+            *Please enter valid Sustainability_Url</label
           >
         </div>
       </div>
 
       <div class="form-group">
-        <label for="company_logo">Company logo*</label>
+        <label class="heading" for="company_logo">Company logo*</label><br>
+        <label class="Instruction"> Please upload a PNG file with transparent background with the file name in the format CompanyName.PNG</label>
         <input
           type="file"
           class="form-control"
@@ -134,7 +141,7 @@
           accept="image/png" 
           ngModel
         />
-        <label
+        <label class="heading"
           for="recipient-name"
           class="col-form-label text-error text-danger"
           *ngIf="fileError && !fileValid"
@@ -145,7 +152,8 @@
 
 
       <div class="form-group">
-        <label for="description">Description*</label>
+        <label class="heading" for="description">Description*</label><br>
+        <label class="Instruction"> please provide a description of the company with a minimum of 30 words</label>
         <textarea
           type="text"
           class="form-control"
@@ -157,7 +165,12 @@
           #description="ngModel"
           ngModel
           style="min-height: 150px"
+          [(ngModel)]="description_valid"
+          (ngModelChange)="validateWordCount()"
         ></textarea>
+        <div *ngIf="isInvalid" class="error-message text-error text-danger">
+          Please enter at least 30 words.
+        </div>
         <label
           for="recipient-name"
           class="col-form-label text-error text-danger"
@@ -184,7 +197,7 @@
         type="submit"
         value="submit"
         class="btn btn-primary primary-btn fr"
-        [disabled]="addFirm.invalid || !fileValid"
+        [disabled]="addFirm.invalid || !fileValid && isInvalid"
         style="float: right; margin-top: 20px; margin-right: 10px"
         >
         Submit<i class="fa fa-spinner fa-spin" *ngIf="isLoad"></i>

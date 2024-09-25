@@ -1,5 +1,4 @@
-var companies = require('../data/companies-data.json');
-var teams = require('../data/teams.json');
+var companies = {};
 
 // Companies data maker
 

@@ -72,7 +72,8 @@
     >
         <thead>
         <tr>
-            <th>Id</th>
+            <th>Index</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Nace_lev2_id</th>
             <th>Nace_lev1_desc</th>
@@ -82,7 +83,8 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of firms">
+            <tr *ngFor="let item of firms; let index = index;">
+                <td>{{ index+1 }}</td>
                 <td>{{ item.company_id }}</td>
                 <td>{{ item.company_name }}</td>
                 <td>{{ item.nace_lev2_id }}</td>

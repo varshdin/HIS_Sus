@@ -19,7 +19,7 @@
                 <div class="widget-chart-flex">
                   <div class="fsize-4">
                     <small class="opacity-5"></small>
-                    <span>87</span>
+                    <span>{{sectors.length}}</span>
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                 <div class="widget-chart-flex">
                   <div class="fsize-4">
                     <small class="opacity-5"></small>
-                    <span>90</span>
+                    <span>{{firms.length}}</span>
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8 col-xl-8">
+    <!-- <div class="col-lg-8 col-xl-8">
       <div class="main-card mb-3 card">
       <div class="card-body">
       <h5 class="card-title">Scripts</h5>
@@ -76,7 +76,39 @@
       </button>
       </div>
       </div>
-      </div>
+      </div> -->
+      <div class="col-lg-8 col-xl-8">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+              <div class="alert alert-success" role="alert" *ngIf="successMessageForRepDown">
+                {{ 'The reports have been successfully downloaded and stored in the download table.' }}
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="saveReportsSuccess">
+                  {{ 'Reports have been successfully saved.' }}
+                  </div>
+                <h5 class="card-title">Scripts</h5>
+                <div class="d-flex justify-content-between w-100">
+                    <!-- First Button -->
+                    <button class="btn btn-primary" (click)="getReports()">
+                        Start process of automatically reports download
+                        <i *ngIf="isGettingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button>
+                    <!-- Second Button -->
+                    <!-- <button class="btn btn-yellow" (click)="updateDownloadTable()">
+                        Update Download Table
+                        <i *ngIf="isUpadteDownload" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button> -->
+                    <!-- Third Button -->
+                    <button class="btn btn-success" (click)="saveReports()">
+                        Update Report Table
+                        <i *ngIf="isSavingReports" class="fa fa-xl fa-spinner fa-spin" style="font-size: 21px; animation: fa-spin 1.5s infinite linear;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      
   </div>
 </div>
 
