@@ -68,7 +68,6 @@ export class FirmsComponent implements OnInit {
 
   
   loadFirms() {
-    console.log(this.firms)
     if(this.pageSize <= this.firms.length){
       if(this.firms.length - this.pageSize < 10){
         this.pageSize=this.pageSize+(this.firms.length - this.pageSize)
